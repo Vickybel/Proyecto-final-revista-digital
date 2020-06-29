@@ -1,3 +1,30 @@
+# Informacion CSS
+1. Colores:
+Color fondo negro
+Color principal azul #004F79
+Color de fuente blanco o negro según fondo
+
+2. Fuentes:
+Google fonts
+@import url(
+    'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Rubik:wght@400;700&display=swap'
+    );
+
+*Pagina*
+Rubik (bold 700)     Titulos
+Rubik (regular 400) Texto
+https://fonts.google.com/specimen/Rubik?selection.family=Rubik:wght@700#about
+
+*solo dentro de las revistas*
+Playfair Display (Black 900)      Titulos
+Playfair Display (Regular 400) Texto
+https://fonts.google.com/specimen/Playfair+Display?query=play
+
+Para usarlos en el css:
+    font-family: 'Playfair Display', serif;
+    font-family: 'Rubik', sans-serif;
+
+
 # WebApp boilerplate with React JS
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io#https://github.com/4GeeksAcademy/react-hello-webapp.git)
 

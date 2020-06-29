@@ -1,3 +1,114 @@
 /* 
     General Styles
+    fuentes:
+    font-family: 'Playfair Display', serif;
+    font-family: 'Rubik', sans-serif;
+
+    color
+    Color fondo negro
+    Color principal azul #004F79
+    Color de fuente blanco o negro según fondo
 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Rubik:wght@400;700&display=swap');
+
+.holapues{
+    font-family: 'Rubik', Bold, sans-serif;
+}
+
+.hola2{
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+}
+
+.titulo{
+    text-align: center;
+    margin-bottom:20px; 
+}
+
+.banner_pequeño{
+    height: 160px;
+    width: 300px;
+    margin-bottom: 15px;
+    margin-left: 50px;
+}
+
+.banner_grande{
+    height: 360px;
+    width: 240px;
+    margin-bottom: 15px;
+}
+
+.card_ediciones{
+    min-width: 265px;
+    min-height: 300px;
+    max-width: 228px;
+    border: none;
+    margin-left: 75px;
+}
+
+.paginacion{
+    margin-left: 490px;
+    display: flex;
+}
+
+.btn{
+    margin: 10px;
+}
+
+.filtro_fechas{
+    width: 240px;
+}
+
+.perfil{
+    text-align: center;
+}
+
+.imagen_de_perfil{
+    border-radius: 100%;
+}
+
+.datos_perfil{
+    display: inline-grid;
+}
+
+.input_datos{
+    width: 500px;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border-color: #004F79;
+}
+.input_img_perfil{
+    width: 500px;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 304px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border-color: #004F79;
+}
+.nombre_dato{
+    font-family: 'Rubik', sans-serif;
+    text-align: left;
+}
+
+.card_suscripcion{
+    width: 500px;
+    padding: 50px;
+}
+
+.planes{
+    display: inline-flex;
+    padding-left: 5%;
+}
+
+.perfil_navbar{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+
+.logo_navbar{
+    width: 100px;
+    margin-right: 30px;
+}
