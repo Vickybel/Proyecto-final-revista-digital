@@ -8,6 +8,7 @@ import { Mediaplans } from "./views/mediaplans";
 import { Suscriptions } from "./views/suscriptions";
 import { Login } from "./views/login";
 import { Single } from "./views/single";
+import { Profile } from "./views/profile";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -26,7 +27,8 @@ export const Layout = () => {
 					<Navbar />
 					<Switch>
 						<Route exact path="/" component={Home} />
-						<Route path="/demo" component={Editions} />
+						<Route path="/editions" component={Editions} />
+						<Route path="/profile" component={Profile} />
 						<Route path="/mediaplans" component={Mediaplans} />
 						<Route path="/suscriptions" component={Suscriptions} />
 						<Route path="/login" component={Login} />
