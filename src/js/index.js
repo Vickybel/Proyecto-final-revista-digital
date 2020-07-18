@@ -11,5 +11,8 @@ import "../styles/index.scss";
 //import your own components
 import Layout from "./layout";
 
+//import pdf css
+import "@phuocng/react-pdf-viewer/cjs/react-pdf-viewer.css";
+
 //render your react application
 ReactDOM.render(<Layout />, document.querySelector("#app"));
