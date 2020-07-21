@@ -13,6 +13,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { The_View } from "./views/the_view";
 
 //create your first component
 export const Layout = () => {
@@ -30,6 +31,7 @@ export const Layout = () => {
 						<Route path="/editions" component={Editions} />
 						<Route path="/profile" component={Profile} />
 						<Route path="/mediaplans" component={Mediaplans} />
+						<Route path="/theview" component={The_View} />
 						<Route path="/suscriptions" component={Suscriptions} />
 						<Route path="/login" component={Login} />
 						<Route path="/single/:theid" component={Single} />
