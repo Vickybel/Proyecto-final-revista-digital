@@ -11,7 +11,7 @@ import Table from "react-bootstrap/Table";
 export const Home = () => {
 	return (
 		<>
-			<Carousel>
+			<Carousel className="carrusel">
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
@@ -48,7 +48,7 @@ export const Home = () => {
 					</Carousel.Caption>
 				</Carousel.Item>
 			</Carousel>
-			<Jumbotron>
+			<Jumbotron className="jumbotron">
 				<h1>Hello, world!</h1>
 				<p>
 					This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
@@ -60,7 +60,7 @@ export const Home = () => {
 					</Link>
 				</p>
 			</Jumbotron>
-			<CardGroup>
+			<CardGroup className="cardgroup">
 				<Card>
 					<Card.Img
 						variant="top"
@@ -116,7 +116,7 @@ export const Home = () => {
 					</Card.Footer>
 				</Card>
 			</CardGroup>
-			<Table striped bordered hover variant="dark">
+			<Table striped bordered hover variant="dark" className="table">
 				<tbody>
 					<tr>
 						<td>
@@ -162,11 +162,11 @@ export const Home = () => {
 					</tr>
 				</tbody>
 			</Table>
-			<Table>
+			<Table className="table">
 				<tbody>
 					<tr>
 						<td>
-							<Jumbotron>
+							<Jumbotron className="jumbotron">
 								<h1>Hello, world!</h1>
 								<p>
 									This is a simple hero unit, a simple jumbotron-style component for calling extra
@@ -180,7 +180,7 @@ export const Home = () => {
 							</Jumbotron>
 						</td>
 						<td>
-							<Jumbotron>
+							<Jumbotron className="jumbotron">
 								<h1>Hello, world!</h1>
 								<p>
 									This is a simple hero unit, a simple jumbotron-style component for calling extra
