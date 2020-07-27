@@ -11,7 +11,6 @@ class Users(db.Model):
     last_name= db.Column(db.String(200), nullable=False)
     date= db.Column(db.String(200), nullable=False)
     premium = db.relationship("Premium", backref="user", uselist=False)
-    
 
 
     def save(self):
@@ -31,17 +30,17 @@ class Users(db.Model):
             "email": self.email,
             "name": self.name,
             "last_name": self.last_name,
-            "date": self.date
+            "date": self.date,
+            "premium": self.premium.serialize()
         }
 
 
 class Premium(db.Model):
     __tablename__= 'premium'
     id= db.Column(db.Integer, primary_key = True)
-    user_id= db.Column(db.String(200), nullable=False, unique=True )
     status= db.Column(db.String(200), nullable=False)
     history= db.Column(db.String(200))
-    user = db.Column(db.Integer, db.ForeignKey("Users.id"), nullable=False)
+    user_id= db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def save(self):
         db.session.add(self) #INSERT INTO
@@ -57,7 +56,7 @@ class Premium(db.Model):
     def serialize(self):
         return{
             "id": self.id,
-            "user_id": self.user.id,
+            "user_id": self.user_id,
             "status": self.status,
             "history": self.history
         }

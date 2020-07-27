@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
@@ -21,16 +21,21 @@ CORS(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    return jsonify('Esto es un Get')
+    return render_template('index.html')
 
 @app.route('/test', methods=['GET', 'POST'])
 @app.route('/test/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def revista(id=None):
     if request.method=='GET':
         if id is not None: 
-            return jsonify('Get con parametro'),200
+            user = Users.query.get(id)
+            if user:
+                return jsonify(user.serialize()), 200
+            return jsonify({"msg" : "User not found!"}), 404
         else: 
-            return jsonify('Get all'),200
+            users = Users.query.all()
+            users = list(map(lambda user: user.serialize(), users))
+            return jsonify(users),200
 
     elif request.method=='PUT': 
         return jsonify('Esto es un Put'),200
@@ -40,11 +45,16 @@ def revista(id=None):
     
     elif request.method=="POST":
         user = Users()
-        user.email =  request.json.POST("email", "")
-        user.name =  request.json.POST("email", "")
-        user.last_name =  request.json.POST("email", "")
-        user.date =  request.json.POST("email", "")
-        return jsonify("email.serialize")
+        user.email =  request.json.get("email", "")
+        user.name =  request.json.get("name", "")
+        user.last_name =  request.json.get("last_name", "")
+        user.date =  request.json.get("date", "")
+        premium= Premium()
+        premium.history = "activo"
+        premium.status = True
+        user.premium = premium
+        user.save()
+        return jsonify(user.serialize()), 201
 
 
 if __name__ == "__main__" : 
