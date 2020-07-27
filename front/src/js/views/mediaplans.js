@@ -1,119 +1,48 @@
 import React from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import "../../styles/index.scss";
 
-export const Mediaplans = () => (
-	<div className="text-center mt-5">
-		<div className="row">
-			<div className="col-3">
-				<img
-					src="https://dam.ngenespanol.com/wp-content/uploads/2020/05/pinguino-rey.jpg"
-					className="img-fluid"
-					alt="Responsive image"
-				/>
-			</div>
-			<div className="col-6">
-				<div className="container">
-					<div className="row">
-						<div className="col-md-12">
-							<div className="well well-sm">
-								<form className="form-horizontal" method="post">
-									<fieldset>
-										<legend className="text-center header">Contact us</legend>
+export const Mediaplans = () => {
+	return (
+		<>
+			<Form.Row className="formulario">
+				<Form.Group>
+					<Form.Label>Contáctanos</Form.Label>
+				</Form.Group>
+				<Form>
+					<Form.Group>
+						<Form.Control placeholder="Nombre" />
+					</Form.Group>
 
-										<div className="form-group">
-											<span className="col-md-1 col-md-offset-2 text-center">
-												<i className="fa fa-user bigicon" />
-											</span>
-											<div className="col-md-8">
-												<input
-													id="fname"
-													name="name"
-													type="text"
-													placeholder="First Name"
-													className="form-control"
-												/>
-											</div>
-										</div>
-										<div className="form-group">
-											<span className="col-md-1 col-md-offset-2 text-center">
-												<i className="fa fa-user bigicon" />
-											</span>
-											<div className="col-md-8">
-												<input
-													id="lname"
-													name="name"
-													type="text"
-													placeholder="Last Name"
-													className="form-control"
-												/>
-											</div>
-										</div>
+					<Form.Group>
+						<Form.Control placeholder="Apellido" />
+					</Form.Group>
 
-										<div className="form-group">
-											<span className="col-md-1 col-md-offset-2 text-center">
-												<i className="fa fa-envelope-o bigicon" />
-											</span>
-											<div className="col-md-8">
-												<input
-													id="email"
-													name="email"
-													type="text"
-													placeholder="Email Address"
-													className="form-control"
-												/>
-											</div>
-										</div>
+					<Form.Group controlId="exampleForm.ControlInput1">
+						<Form.Label>Email address</Form.Label>
+						<Form.Control type="email" placeholder="name@example.com" />
+					</Form.Group>
 
-										<div className="form-group">
-											<span className="col-md-1 col-md-offset-2 text-center">
-												<i className="fa fa-phone-square bigicon" />
-											</span>
-											<div className="col-md-8">
-												<input
-													id="phone"
-													name="phone"
-													type="text"
-													placeholder="Phone"
-													className="form-control"
-												/>
-											</div>
-										</div>
-
-										<div className="form-group">
-											<span className="col-md-1 col-md-offset-2 text-center">
-												<i className="fa fa-pencil-square-o bigicon" />
-											</span>
-											<div className="col-md-8">
-												<textarea
-													className="form-control"
-													id="message"
-													name="message"
-													placeholder="Enter your massage for us here. We will get back to you within 2 business days."
-													rows="7"
-												/>
-											</div>
-										</div>
-
-										<div className="form-group">
-											<div className="col-md-12 text-center">
-												<button type="submit" className="btn btn-primary btn-lg">
-													Submit
-												</button>
-											</div>
-										</div>
-									</fieldset>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div className="col-3">
-				<img
-					src="https://dam.ngenespanol.com/wp-content/uploads/2020/05/pinguino-rey.jpg"
-					className="img-fluid"
-					alt="Responsive image"
-				/>
-			</div>
-		</div>
-	</div>
-);
+					<Form.Group controlId="exampleForm.ControlSelect1">
+						<Form.Label>Asunto</Form.Label>
+						<Form.Control as="select">
+							<option>Publicación página aleatoria</option>
+							<option>Publicación página impar revista</option>
+							<option>Publicación página par revista</option>
+							<option>Publicidad páginas centrales revista</option>
+							<option>Otro</option>
+						</Form.Control>
+					</Form.Group>
+					<Form.Group controlId="exampleForm.ControlTextarea1">
+						<Form.Label>Comentarios</Form.Label>
+						<Form.Control as="textarea" rows="3" />
+					</Form.Group>
+				</Form>
+				<Button variant="primary" type="submit">
+					Enviar
+				</Button>
+			</Form.Row>
+		</>
+	);
+};

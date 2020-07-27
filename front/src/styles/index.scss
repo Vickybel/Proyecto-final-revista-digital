@@ -15,15 +15,6 @@
     text-align: center;
 }
 
-.holapues{
-    font-family: 'Rubik', Bold, sans-serif;
-}
-
-.hola2{
-    font-family: 'Playfair Display', serif;
-    font-size: 40px;
-}
-
 .titulo{
     font-family: 'Playfair Display', serif;
     margin-bottom:20px; 
@@ -144,4 +135,13 @@
     font-size: 15px;
     color: #666;
     margin: 0;
+}
+.formulario{
+     float:left;
+   padding:2px;
+   cursor:pointer;
+   display:block;
+   width:290px;
+   margin:auto;
+   text-align:left;
 }

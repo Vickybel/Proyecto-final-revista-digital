@@ -13,6 +13,7 @@ class Users(db.Model):
     premium = db.relationship("Premium", backref="user", uselist=False)
 
 
+    
     def save(self):
         db.session.add(self) #INSERT INTO
         db.session.commit()
@@ -93,6 +94,7 @@ class Invoices(db.Model):
 class Magazines(db.Model):
     __tablename__= 'magazine'
     id = db.Column(db.Integer, primary_key = True)
+    user_type = db.Column(db.String(200), nullable=False)
     name = db.Column(db.String(200), nullable=False)
     date = db.Column(db.String(200), nullable=False)
     body = db.Column(db.String(200), nullable=False)    #fecha de pago
@@ -112,8 +114,46 @@ class Magazines(db.Model):
     def serialize(self):
         return{
             "id": self.id,
+            "user_type": self.user_type,
             "name": self.name,
             "date": self.date,
             "body": self.body,
             "glance": self.glance
+        }
+
+class Admin(db.Model):
+    __tablename__= 'admin'
+    id= db.Column(db.Integer, primary_key = True)
+    user_id= db.Column(db.String(200), nullable=False, unique=True )
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "user_id": self.user_id,
+        }
+
+class Carousel(db.Model):
+    __tablename__= 'carousel'
+    id = db.Column(db.Integer, primary_key = True)
+    admin_id = db.Column(db.String(200), nullable=False)
+    name = db.Column(db.String(200), nullable=False)  #nombre de la imagen
+    size = db.Column(db.String(200), nullable=False)  #tamaño de la imagen
+
+    def save(self):
+        db.session.add(self) #INSERT INTO
+        db.session.commit()
+
+    def update(self):
+        db.session.commit() #UPDATE
+    
+    def delete(self):
+        db.session.delete(self) #DELETE FROM
+        db.session.commit()
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "admin_id": self.admin_id,
+            "name": self.name,
+            "size": self.size,
         }
