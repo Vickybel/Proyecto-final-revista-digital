@@ -8,7 +8,7 @@ export const Profile = () => {
 	return (
 		<>
 			<div className="container perfil">
-				<h1 className="display-3 titulo">Mi perfil</h1>
+				<h1 className="display-1 perfil_title ">Mi perfil</h1>
 				<img className="imagen_de_perfil" src={fill_murray_300x300} alt="..." />
 				<div className="input-group mb-3">
 					<div className="custom-file">
