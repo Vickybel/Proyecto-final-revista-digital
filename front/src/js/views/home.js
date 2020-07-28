@@ -55,7 +55,7 @@ export const Home = () => {
 					featured content or information.
 				</p>
 				<p>
-					<Link to="/theview">
+					<Link to="/suscriptions">
 						<Button variant="primary">Learn more</Button>
 					</Link>
 				</p>

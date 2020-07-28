@@ -97,8 +97,8 @@ class Magazines(db.Model):
     user_type = db.Column(db.String(200), nullable=False)
     name = db.Column(db.String(200), nullable=False)
     date = db.Column(db.String(200), nullable=False)
-    body = db.Column(db.String(200), nullable=False)    #fecha de pago
-    glance = db.Column(db.String(200), nullable=False) #fecha de expiracion de pago
+    body = db.Column(db.String(200), nullable=False)  
+    glance = db.Column(db.String(200), nullable=False) #portada
 
     def save(self):
         db.session.add(self) #INSERT INTO

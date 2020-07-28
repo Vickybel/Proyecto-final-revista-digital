@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import logo_brutal from "../../img/logo-brutal-1.png";
+import logo_brutal from "../../img/logo-brutal.jpg";
 
 export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">

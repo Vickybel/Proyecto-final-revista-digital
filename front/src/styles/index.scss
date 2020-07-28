@@ -14,37 +14,58 @@
 .container{
     text-align: center;
 }
+.playfair{
+    font-family: 'Playfair Display', serif;    
+}
+.rubik{
+    font-family: 'Rubik', sans-serif;    
+}
+.navbar_dark{
+    background-color: #0000;
+}
 
 .titulo{
     font-family: 'Playfair Display', serif;
     margin-bottom:20px; 
-    padding-left: 75px;
+    padding-left: 137px;
+}
+.suscribete_title{
+    font-family: 'Playfair Display', serif;
+    margin-bottom:20px; 
+    padding-left: 53px;
+}
+.mediaplans_title{
+    font-family: 'Playfair Display', serif;
+    margin-bottom:20px; 
+    margin-left: -59px;
+    margin-top: -3px;
 }
 .perfil_title{
     font-family: 'Playfair Display', serif;
 }
 .banner_pequeño{
     height: 160px;
-    width: 300px;
-    margin-bottom: 15px;
+    width: 260px;
+    margin-top: 30px;
+    margin-left: 30px;
 }
 
 .banner_grande{
     height: 360px;
-    width: 240px;
+    width: 260px;
     margin-bottom: 15px;
 }
 
 .card_ediciones{
-    min-width: 265px;
+    min-width: 311px;
     min-height: 300px;
     max-width: 228px;
     border: none;
-    margin-left: 100px;
+    margin-left: 106px;
 }
 
 .paginacion{
-    margin-left: 490px;
+    margin-left: 562px;
     display: flex;
 }
 
@@ -54,6 +75,7 @@
 
 .filtro_fechas{
     width: 240px;
+    margin-top: 30px
 }
 
 .perfil{
@@ -100,14 +122,17 @@
 }
 
 .perfil_navbar{
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 100%;
+    margin-right: 25px;
 }
 
 .logo_navbar{
-    width: 100px;
+    width: 270px;
     margin-right: 30px;
+    margin-bottom: -8px;
+    margin-top: -8px;
 }
 
 .card-body{
@@ -119,7 +144,6 @@
     width: 230px;
     margin-right: 30px;
     margin-top: 25px;
-    border-radius: 10px;
 }
 .footer{
     background: black;

@@ -11,7 +11,7 @@ import { Single } from "./views/single";
 import { Profile } from "./views/profile";
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
+import { Navba } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { The_View } from "./views/the_view";
 
@@ -25,7 +25,7 @@ export const Layout = () => {
 		<div className="d-flex flex-column h-100">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Navbar />
+					<Navba />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/editions" component={Editions} />

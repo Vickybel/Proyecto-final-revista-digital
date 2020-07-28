@@ -7,7 +7,7 @@ export const Suscriptions = () => {
 	return (
 		<>
 			<div className="container">
-				<div className="titulo">
+				<div className="suscribete_title">
 					<h1 className="display-3">Tenemos el plan</h1>
 					<h1 className="display-3">que necesitas</h1>
 				</div>

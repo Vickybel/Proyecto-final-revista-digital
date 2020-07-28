@@ -8,7 +8,7 @@ export const Mediaplans = () => {
 		<>
 			<Form.Row className="formulario">
 				<Form.Group>
-					<Form.Label>Contáctanos</Form.Label>
+					<Form.Label className="mediaplans_title display-3">Contáctanos</Form.Label>
 				</Form.Group>
 				<Form>
 					<Form.Group>
