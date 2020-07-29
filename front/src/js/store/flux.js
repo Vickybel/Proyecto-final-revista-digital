@@ -14,7 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			url_magazine: "https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/magazine",
-			magazines: []
+			magazines: [],
+			banner: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction

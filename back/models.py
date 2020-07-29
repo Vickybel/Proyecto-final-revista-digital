@@ -90,7 +90,6 @@ class Invoices(db.Model):
             "validity": self.validity
         }
 
-
 class Magazines(db.Model):
     __tablename__= 'magazine'
     id = db.Column(db.Integer, primary_key = True)
@@ -157,3 +156,30 @@ class Carousel(db.Model):
             "name": self.name,
             "size": self.size,
         }
+        
+class Banner(db.Model):
+    __tablename__= 'banner'
+    id = db.Column(db.Integer, primary_key = True)
+    admin_id = db.Column(db.String(200), nullable=False)
+    name = db.Column(db.String(200), nullable=False)  #nombre de la imagen
+    size = db.Column(db.String(200), nullable=False)  #tamaño de la imagen
+
+    def save(self):
+        db.session.add(self) #INSERT INTO
+        db.session.commit()
+
+    def update(self):
+        db.session.commit() #UPDATE
+    
+    def delete(self):
+        db.session.delete(self) #DELETE FROM
+        db.session.commit()
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "admin_id": self.admin_id,
+            "name": self.name,
+            "size": self.size,
+        }
+        
