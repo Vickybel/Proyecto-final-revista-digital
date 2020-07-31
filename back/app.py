@@ -51,7 +51,7 @@ def usuario(id=None):
         user.premium = premium
         user.update()
         return jsonify('Actualizado correctamente'), 200
-
+# https://www.free-css.com/assets/files/free-css-templates/preview/page254/auricle/
     elif request.method == 'DELETE':
         user = Users.query.get(id)
         user.delete()
