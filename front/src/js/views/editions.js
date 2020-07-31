@@ -5,6 +5,7 @@ import fill_murray_640x360 from "../../img/fill_murray_640x360.jpg";
 import fill_murray_240x360 from "../../img/fill_murray_240x360.jpg";
 import Opcion from "../component/opcion_ediciones";
 import Card from "../component/card_ediciones";
+import { Banner } from "../component/banner";
 
 export const Editions = () => {
 	// const { store } = useContext(Context);
@@ -27,7 +28,7 @@ export const Editions = () => {
 						</select>
 					</div>
 					<img className="banner_grande" src={fill_murray_240x360} alt="..." />
-					<img className="banner_grande" src={fill_murray_240x360} alt="..." />
+					<Banner />
 				</div>
 				<div className="col-md-9">
 					<div className="titulo">
@@ -39,9 +40,7 @@ export const Editions = () => {
 				</div>
 				<div className="col-md-1">
 					<img className="banner_pequeño" src={fill_murray_640x360} alt="..." />
-					<img className="banner_pequeño" src={fill_murray_640x360} alt="..." />
-					<img className="banner_pequeño" src={fill_murray_640x360} alt="..." />
-					<img className="banner_pequeño" src={fill_murray_640x360} alt="..." />
+					<Banner />
 				</div>
 				<div>
 					<div className="paginacion">

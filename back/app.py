@@ -133,6 +133,7 @@ def carousel(id=None):
         carousel.admin_id = request.json.get("admin_id", "")
         carousel.name = request.json.get("name", "")
         carousel.size = request.json.get("size", "")
+        carousel.body = request.json.get("body", "")
         carousel.update()
         return jsonify('Actualizado correctamente'), 200
 
@@ -147,6 +148,7 @@ def carousel(id=None):
         carousel.admin_id = request.json.get("admin_id", "")
         carousel.name = request.json.get("name", "")
         carousel.size = request.json.get("size", "")
+        carousel.body = request.json.get("body", "")
         carousel.save()
         return jsonify(carousel.serialize()), 201
 
@@ -170,6 +172,7 @@ def banner(id=None):
         banner.admin_id = request.json.get("admin_id", "")
         banner.name = request.json.get("name", "")
         banner.size = request.json.get("size", "")
+        banner.body = request.json.get("body", "")
         banner.update()
         return jsonify('Actualizado correctamente'), 200
 
@@ -184,6 +187,7 @@ def banner(id=None):
         banner.admin_id = request.json.get("admin_id", "")
         banner.name = request.json.get("name", "")
         banner.size = request.json.get("size", "")
+        banner.body = request.json.get("body", "")
         banner.save()
         return jsonify(banner.serialize()), 201
 

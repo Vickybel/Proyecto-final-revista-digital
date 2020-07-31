@@ -14,7 +14,7 @@ const Card = () => {
 						<>
 							<div className="col mb-4">
 								<div className="card card_ediciones h-100">
-									<img src={ediciones} className="card-img-top" alt="glance" />
+									<img src={item.body} className="card-img-top" alt="glance" />
 									<div className="card-body" />
 									<p>{nombre} </p>
 									<Link to="/theview">

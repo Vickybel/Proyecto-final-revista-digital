@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: c7e23cb3be0d
+Revision ID: 7e109ebea5e6
 Revises: 
-Create Date: 2020-07-29 20:57:44.847199
+Create Date: 2020-07-30 19:29:15.114666
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c7e23cb3be0d'
+revision = '7e109ebea5e6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,7 @@ def upgrade():
     sa.Column('admin_id', sa.String(length=200), nullable=False),
     sa.Column('name', sa.String(length=200), nullable=False),
     sa.Column('size', sa.String(length=200), nullable=False),
+    sa.Column('body', sa.String(length=100), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('carousel',
@@ -36,6 +37,7 @@ def upgrade():
     sa.Column('admin_id', sa.String(length=200), nullable=False),
     sa.Column('name', sa.String(length=200), nullable=False),
     sa.Column('size', sa.String(length=200), nullable=False),
+    sa.Column('body', sa.String(length=100), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('invoice',

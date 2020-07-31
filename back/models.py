@@ -137,6 +137,7 @@ class Carousel(db.Model):
     admin_id = db.Column(db.String(200), nullable=False)
     name = db.Column(db.String(200), nullable=False)  #nombre de la imagen
     size = db.Column(db.String(200), nullable=False)  #tamaño de la imagen
+    body = db.Column(db.String(100), nullable=False)  #imagen carusel
 
     def save(self):
         db.session.add(self) #INSERT INTO
@@ -155,6 +156,7 @@ class Carousel(db.Model):
             "admin_id": self.admin_id,
             "name": self.name,
             "size": self.size,
+            "body": self.body
         }
         
 class Banner(db.Model):
@@ -163,6 +165,7 @@ class Banner(db.Model):
     admin_id = db.Column(db.String(200), nullable=False)
     name = db.Column(db.String(200), nullable=False)  #nombre de la imagen
     size = db.Column(db.String(200), nullable=False)  #tamaño de la imagen
+    body = db.Column(db.String(100), nullable=False)  #imagen banner
 
     def save(self):
         db.session.add(self) #INSERT INTO
@@ -181,5 +184,6 @@ class Banner(db.Model):
             "admin_id": self.admin_id,
             "name": self.name,
             "size": self.size,
+            "body": self.body
         }
         
