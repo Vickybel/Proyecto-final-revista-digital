@@ -16,7 +16,7 @@ export const Home = () => {
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
-						src="https://dam.ngenespanol.com/wp-content/uploads/2020/05/pinguino-rey.jpg"
+						src="http://placeimg.com/1000/300/animals?t=1596140387818"
 						alt="First slide"
 					/>
 					<Carousel.Caption>
@@ -27,7 +27,7 @@ export const Home = () => {
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
-						src="https://i.ytimg.com/vi/n8TXpXWaINk/maxresdefault.jpg"
+						src="http://placeimg.com/1000/300/animals?t=1596140440545"
 						alt="Third slide"
 					/>
 
@@ -39,7 +39,7 @@ export const Home = () => {
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
-						src="https://i.pinimg.com/originals/8a/99/cb/8a99cb60425b9b286d43dfc310b1a664.jpg"
+						src="http://placeimg.com/1000/300/animals?t=1596140457250"
 						alt="Third slide"
 					/>
 
@@ -50,23 +50,38 @@ export const Home = () => {
 				</Carousel.Item>
 			</Carousel>
 			<Jumbotron className="jumbotron">
-				<h1>Hello, world!</h1>
+				<h1>¡Suscríbete!</h1>
 				<p>
-					This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-					featured content or information.
+					Disfruta de la lectura completa de todas nuestras revistas y guarda tus favorias en un espacio solo
+					dedicado para ti.
 				</p>
+				<Card style={{ width: "75rem" }}>
+					<div className="row">
+						<div className="col-6">
+							<Card.Img
+								variant="top"
+								src="https://s7cdn.joomag.com/res_mag/1/1065/1065366/1828535/thumbs/44293025.jpg?1558100217"
+								className="suscribete"
+							/>
+						</div>
+						<div className="col-6">
+							<Card.Img
+								variant="top"
+								src="https://s7cdn.joomag.com/res_mag/1/1275/1275807/2050475/thumbs/49684033.jpg?1572336469"
+								className="suscribete"
+							/>
+						</div>
+					</div>
+				</Card>
 				<p>
 					<Link to="/suscriptions">
-						<Button variant="primary">Learn more</Button>
+						<Button variant="primary">Suscribirse</Button>
 					</Link>
 				</p>
 			</Jumbotron>
 			<CardGroup className="cardgroup">
 				<Card>
-					<Card.Img
-						variant="top"
-						src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-					/>
+					<Card.Img variant="top" src="http://placeimg.com/800/800/people" />
 					<Card.Body>
 						<Card.Title>Card title</Card.Title>
 						<Card.Text>
@@ -76,15 +91,12 @@ export const Home = () => {
 					</Card.Body>
 					<Card.Footer>
 						<Link to="/theview">
-							<Button variant="primary">Learn more</Button>
+							<Button variant="primary">Leer más</Button>
 						</Link>
 					</Card.Footer>
 				</Card>
 				<Card>
-					<Card.Img
-						variant="top"
-						src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-					/>
+					<Card.Img variant="top" src="http://placeimg.com/800/800/people?t=1596140904594" />
 					<Card.Body>
 						<Card.Title>Card title</Card.Title>
 						<Card.Text>
@@ -94,15 +106,12 @@ export const Home = () => {
 					</Card.Body>
 					<Card.Footer>
 						<Link to="/theview">
-							<Button variant="primary">Learn more</Button>
+							<Button variant="primary">Leer más</Button>
 						</Link>
 					</Card.Footer>
 				</Card>
 				<Card>
-					<Card.Img
-						variant="top"
-						src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-					/>
+					<Card.Img variant="top" src="http://placeimg.com/800/800/people?t=1596140923122" />
 					<Card.Body>
 						<Card.Title>Card title</Card.Title>
 						<Card.Text>
@@ -112,7 +121,7 @@ export const Home = () => {
 					</Card.Body>
 					<Card.Footer>
 						<Link to="/theview">
-							<Button variant="primary">Learn more</Button>
+							<Button variant="primary">Leer más</Button>
 						</Link>
 					</Card.Footer>
 				</Card>
@@ -122,42 +131,27 @@ export const Home = () => {
 					<tr>
 						<td>
 							<Link to="/theview">
-								<Card.Img
-									variant="top"
-									src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-								/>
+								<Card.Img variant="top" src="http://placeimg.com/400/400/arch" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img
-									variant="top"
-									src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-								/>
+								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141050162" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img
-									variant="top"
-									src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-								/>
+								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141065145" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img
-									variant="top"
-									src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-								/>
+								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141076338" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img
-									variant="top"
-									src="https://metamorfosisforzada.files.wordpress.com/2019/01/Chiguire-5.jpg?w=640"
-								/>
+								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141087658" />
 							</Link>
 						</td>
 					</tr>
@@ -168,28 +162,36 @@ export const Home = () => {
 					<tr>
 						<td>
 							<Jumbotron className="jumbotron">
-								<h1>Hello, world!</h1>
+								<h1>Revista brutal</h1>
+								<Card.Img
+									variant="top"
+									src="https://www.itca.edu.sv/wp-content/uploads/2018/11/Portada-RevistaTecnologica2018.jpg"
+								/>
 								<p>
 									This is a simple hero unit, a simple jumbotron-style component for calling extra
 									attention to featured content or information.
 								</p>
 								<p>
 									<Link to="/theview">
-										<Button variant="primary">Learn more</Button>
+										<Button variant="primary">Leer más</Button>
 									</Link>
 								</p>
 							</Jumbotron>
 						</td>
 						<td>
 							<Jumbotron className="jumbotron">
-								<h1>Hello, world!</h1>
+								<h1>Revista brutal</h1>
+								<Card.Img
+									variant="top"
+									src="https://www.itca.edu.sv/wp-content/uploads/2018/11/Portada-RevistaTecnologica2018.jpg"
+								/>
 								<p>
 									This is a simple hero unit, a simple jumbotron-style component for calling extra
 									attention to featured content or information.
 								</p>
 								<p>
 									<Link to="/theview">
-										<Button variant="primary">Learn more</Button>
+										<Button variant="primary">Leer más</Button>
 									</Link>
 								</p>
 							</Jumbotron>
