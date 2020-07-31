@@ -11,6 +11,7 @@ class Users(db.Model):
     last_name= db.Column(db.String(200), nullable=False)
     date= db.Column(db.String(200), nullable=False)
     premium = db.relationship("Premium", backref="user", uselist=False)
+    admin = db.relationship("Admin", backref="user", uselist=False)
 
 
     
@@ -36,7 +37,7 @@ class Users(db.Model):
         }
 
 
-class Premium(db.Model):
+class Premium(db.Model): 
     __tablename__= 'premium'
     id= db.Column(db.Integer, primary_key = True)
     status= db.Column(db.String(200), nullable=False)
@@ -123,7 +124,8 @@ class Magazines(db.Model):
 class Admin(db.Model):
     __tablename__= 'admin'
     id= db.Column(db.Integer, primary_key = True)
-    user_id= db.Column(db.String(200), nullable=False, unique=True )
+    user_id= db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
 
     def serialize(self):
         return{
