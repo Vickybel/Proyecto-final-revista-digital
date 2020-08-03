@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Worker } from "@phuocng/react-pdf-viewer";
 import Viewer from "@phuocng/react-pdf-viewer";
-// import brutal_ejemplo from "../../img/brutal_ejemplo";
 // import SimpleToolbar from "../component/simpletoolbar";
 
 export const The_View = () => {

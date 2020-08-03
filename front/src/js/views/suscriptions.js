@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { Card } from "react-bootstrap";
 
 export const Suscriptions = () => {
 	const { store, actions } = useContext(Context);
 	return (
 		<>
-			<div className="container">
+			<Card className="text-center">
 				<div className="suscribete_title">
 					<h1 className="display-3">Tenemos el plan</h1>
 					<h1 className="display-3">que necesitas</h1>
 				</div>
 				<div className="planes">
 					<div className="card_suscripcion">
-						<div className="card">
+						<Card>
 							<div className="card-body">
 								<h5 className="card-title">Plan Principal</h5>
 								<p className="card-text">
@@ -62,10 +63,10 @@ export const Suscriptions = () => {
 									/>
 								</form>
 							</div>
-						</div>
+						</Card>
 					</div>
 				</div>
-			</div>
+			</Card>
 		</>
 	);
 };
