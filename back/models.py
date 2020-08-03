@@ -10,11 +10,10 @@ class Users(db.Model):
     name= db.Column(db.String(200), nullable=False)
     last_name= db.Column(db.String(200), nullable=False)
     date= db.Column(db.String(200), nullable=False)
+    avatar= db.Column(db.String(200), nullable=False)
     premium = db.relationship("Premium", backref="user", uselist=False)
     admin = db.relationship("Admin", backref="user", uselist=False)
 
-
-    
     def save(self):
         db.session.add(self) #INSERT INTO
         db.session.commit()
@@ -33,34 +32,7 @@ class Users(db.Model):
             "name": self.name,
             "last_name": self.last_name,
             "date": self.date,
-            "premium": self.premium.serialize()
-        }
-
-
-class Premium(db.Model): 
-    __tablename__= 'premium'
-    id= db.Column(db.Integer, primary_key = True)
-    status= db.Column(db.String(200), nullable=False)
-    history= db.Column(db.String(200))
-    user_id= db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-    def save(self):
-        db.session.add(self) #INSERT INTO
-        db.session.commit()
-
-    def update(self):
-        db.session.commit() #UPDATE
-    
-    def delete(self):
-        db.session.delete(self) #DELETE FROM
-        db.session.commit()
-
-    def serialize(self):
-        return{
-            "id": self.id,
-            "user_id": self.user_id,
-            "status": self.status,
-            "history": self.history
+            "avatar": self.avatar
         }
 
 class Invoices(db.Model):
@@ -70,6 +42,7 @@ class Invoices(db.Model):
     payment = db.Column(db.String(200), nullable=False)
     date = db.Column(db.String(200), nullable=False)    #fecha de pago
     validity = db.Column(db.String(200), nullable=False) #fecha de expiracion de pago
+    premium = db.relationship("Premium", backref="invoice")
 
     def save(self):
         db.session.add(self) #INSERT INTO
@@ -91,6 +64,67 @@ class Invoices(db.Model):
             "validity": self.validity
         }
 
+class Premium(db.Model): 
+    __tablename__= 'premium'
+    id= db.Column(db.Integer, primary_key = True)
+    status= db.Column(db.String(200), nullable=False)
+    transactions= db.Column(db.Integer, db.ForeignKey("invoice.id"), nullable=False)
+    user_id= db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    magazine = db.relationship("Magazines", backref="premium", uselist=False)
+
+    def save(self):
+        db.session.add(self) #INSERT INTO
+        db.session.commit()
+
+    def update(self):
+        db.session.commit() #UPDATE
+    
+    def delete(self):
+        db.session.delete(self) #DELETE FROM
+        db.session.commit()
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "user_id": self.user_id,
+            "status": self.status,
+        }
+
+    def serialize_with_transactions_history(self):
+            return{
+                "id": self.id,
+                "user_id": self.user_id,
+                "status": self.status,
+                "transactions": {
+                    "invoices": self.transactions
+                }
+            }
+
+class Admin(db.Model):
+    __tablename__= 'admin'
+    id= db.Column(db.Integer, primary_key = True)
+    user_id= db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    magazine = db.relationship("Magazines", backref="admin", uselist=False)
+    banner = db.relationship("Banner", backref="admin", uselist=False)
+    carousel = db.relationship("Carousel", backref="admin", uselist=False)
+
+    def save(self):
+        db.session.add(self) #INSERT INTO
+        db.session.commit()
+
+    def update(self):
+        db.session.commit() #UPDATE
+    
+    def delete(self):
+        db.session.delete(self) #DELETE FROM
+        db.session.commit()
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "user_id": self.user_id,
+        }
+
 class Magazines(db.Model):
     __tablename__= 'magazine'
     id = db.Column(db.Integer, primary_key = True)
@@ -99,6 +133,8 @@ class Magazines(db.Model):
     date = db.Column(db.String(200), nullable=False)
     body = db.Column(db.String(200), nullable=False)  
     glance = db.Column(db.String(200), nullable=False) #portada
+    premium_id= db.Column(db.Integer, db.ForeignKey("premium.id"), nullable=False)
+    admin_id= db.Column(db.Integer, db.ForeignKey("admin.id"), nullable=False)
 
     def save(self):
         db.session.add(self) #INSERT INTO
@@ -121,18 +157,6 @@ class Magazines(db.Model):
             "glance": self.glance
         }
 
-class Admin(db.Model):
-    __tablename__= 'admin'
-    id= db.Column(db.Integer, primary_key = True)
-    user_id= db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-
-    def serialize(self):
-        return{
-            "id": self.id,
-            "user_id": self.user_id,
-        }
-
 class Carousel(db.Model):
     __tablename__= 'carousel'
     id = db.Column(db.Integer, primary_key = True)
@@ -140,6 +164,7 @@ class Carousel(db.Model):
     name = db.Column(db.String(200), nullable=False)  #nombre de la imagen
     size = db.Column(db.String(200), nullable=False)  #tamaño de la imagen
     body = db.Column(db.String(100), nullable=False)  #imagen carusel
+    admin_id= db.Column(db.Integer, db.ForeignKey("admin.id"), nullable=False)
 
     def save(self):
         db.session.add(self) #INSERT INTO
@@ -168,6 +193,7 @@ class Banner(db.Model):
     name = db.Column(db.String(200), nullable=False)  #nombre de la imagen
     size = db.Column(db.String(200), nullable=False)  #tamaño de la imagen
     body = db.Column(db.String(100), nullable=False)  #imagen banner
+    admin_id= db.Column(db.Integer, db.ForeignKey("admin.id"), nullable=False)
 
     def save(self):
         db.session.add(self) #INSERT INTO
