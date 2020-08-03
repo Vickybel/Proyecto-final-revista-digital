@@ -154,7 +154,8 @@ class Magazines(db.Model):
             "name": self.name,
             "date": self.date,
             "body": self.body,
-            "glance": self.glance
+            "glance": self.glance,
+            "premium_id": self.premium_ids
         }
 
 class Carousel(db.Model):

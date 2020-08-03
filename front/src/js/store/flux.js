@@ -44,21 +44,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getMagazine: () => {
 				// const store = getStore();
-				fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/magazine")
+				//fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/magazine")
+				fetch("https://5000-e415c755-f0d4-4272-8c20-df2b48e34360.ws-us02.gitpod.io/premium")
 					.then(res => res.json())
 					.then(data => {
 						setStore({ magazines: data });
 					});
 			},
 			getBanner: () => {
-				fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/banner")
+				//fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/banner")
+				fetch("https://5000-e415c755-f0d4-4272-8c20-df2b48e34360.ws-us02.gitpod.io/premium")
 					.then(res => res.json())
 					.then(data => {
 						setStore({ banners: data });
 					});
 			},
 			getCarousel: () => {
-				fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/carousel")
+				//fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/carousel")
+				fetch("https://5000-e415c755-f0d4-4272-8c20-df2b48e34360.ws-us02.gitpod.io/premium")
 					.then(res => res.json())
 					.then(data => {
 						setStore({ carousels: data });

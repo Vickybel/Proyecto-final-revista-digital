@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import fill_murray_300x300 from "../../img/fill_murray_300x300.jpg";
-import logo_brutal from "../../img/logo-brutal-gris.jpg";
+import logo_brutal from "../../img/logo-brutal.jpg";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";

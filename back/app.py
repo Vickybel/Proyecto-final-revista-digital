@@ -92,6 +92,7 @@ def revista(id=None):
         magazine.date = request.json.get("date", "")
         magazine.body = request.json.get("body", "")
         magazine.glance = request.json.get("glance", "")
+        magazine.premium_id= request.json.get("premium_id", "")
         magazine.update()
         return jsonify('Actualizado correctamente'), 200
 
@@ -221,7 +222,7 @@ def premium(id=None):
         premium.status = request.json.get("status", "")
         premium.transactions = request.json.get("transactions", "")
         premium.save()
-        return jsonify(premium.serialize()), 201
+        return jsonify(premium.serialize_with_transactions_history()), 201
 
 @app.   route('/invoices', methods=['GET', 'POST'])
 @app.route('/invoices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
