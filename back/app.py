@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, render_template, json
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
-from models import db, Users, Premium, Invoices, Magazines, Admin, Carousel, Banner
+from models import db, User, Premium, Invoice, Magazine, Admin, Carousel, Banner
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -27,17 +27,17 @@ def main():
 def usuario(id=None):
     if request.method == 'GET':
         if id is not None:
-            user = Users.query.get(id)
+            user = User.query.get(id)
             if user:
                 return jsonify(user.serialize()), 200
             return jsonify({"msg": "User not found!"}), 404
         else:
-            users = Users.query.all()
+            users = User.query.all()
             users = list(map(lambda user: user.serialize(), users))
             return jsonify(users), 200
 
     elif request.method == 'PUT':
-        user = Users.query.get(id)
+        user = User.query.get(id)
         user.email = request.json.get("email", "")
         user.name = request.json.get("name", "")
         user.last_name = request.json.get("last_name", "")
@@ -51,12 +51,12 @@ def usuario(id=None):
         return jsonify('Actualizado correctamente'), 200
 # https://www.free-css.com/assets/files/free-css-templates/preview/page254/auricle/
     elif request.method == 'DELETE':
-        user = Users.query.get(id)
+        user = User.query.get(id)
         user.delete()
         return jsonify('Borrado'),200
 
     elif request.method == "POST":
-        user = Users()
+        user = User()
         user.email = request.json.get("email", "")
         user.name = request.json.get("name", "")
         user.last_name = request.json.get("last_name", "")
@@ -74,19 +74,19 @@ def usuario(id=None):
 def revista(id=None):
     if request.method == 'GET':
         if id is not None:
-            magazine = Magazines.query.get(id)
+            magazine = Magazine.query.get(id)
             if magazine:
                 return jsonify(magazine.serialize()), 200
             return jsonify({"msg": "Magazine not found!"}), 404
         else:
-            magazines = Magazines.query.all()
+            magazines = Magazine.query.all()
             magazines = list(
                 map(lambda magazine: magazine.serialize(), magazines))
             return jsonify(magazines), 200
 
 
     elif request.method == 'PUT':
-        magazine = Magazines.query.get(id)
+        magazine = Magazine.query.get(id)
         magazine.user_type = request.json.get("user_type", "")
         magazine.name = request.json.get("name", "")
         magazine.date = request.json.get("date", "")
@@ -97,12 +97,12 @@ def revista(id=None):
         return jsonify('Actualizado correctamente'), 200
 
     elif request.method == 'DELETE':
-        magazine = Magazines.query.get(id)
+        magazine = Magazine.query.get(id)
         magazine.delete()
         return jsonify('Borrado'),200
 
     elif request.method == "POST":
-        magazine = Magazines()
+        magazine = Magazine()
         magazine.user_type = request.json.get("user_type", "")
         magazine.name = request.json.get("name", "")
         magazine.date = request.json.get("date", "")
@@ -220,27 +220,26 @@ def premium(id=None):
         premium = Premium()
         premium.user_id = request.json.get("user_id", "")
         premium.status = request.json.get("status", "")
-        premium.transactions = request.json.get("transactions", "")
         premium.save()
-        return jsonify(premium.serialize_with_transactions_history()), 201
+        return jsonify(premium.serialize()), 201
 
 @app.   route('/invoices', methods=['GET', 'POST'])
 @app.route('/invoices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def invoices(id=None):
     if request.method == 'GET':
         if id is not None:
-            invoice = Invoices.query.get(id)
+            invoice = Invoice.query.get(id)
             if invoice:
                 return jsonify(invoice.serialize()), 200
             return jsonify({"msg": "This invoice not found!"}), 404
         else:
-            invoices = Invoices.query.all()
+            invoices = Invoice.query.all()
             invoices = list(
                 map(lambda invoice: invoice.serialize(), invoices))
             return jsonify(invoices), 200
 
     elif request.method == 'PUT':
-        invoice = Invoices.query.get(id)
+        invoice = Invoice.query.get(id)
         invoice.email_paypal = request.json.get("email_paypal", "")
         invoice.payment = request.json.get("payment", "")
         invoice.date = request.json.get("date", "")
@@ -249,12 +248,12 @@ def invoices(id=None):
         return jsonify('Actualizado correctamente'), 200
 
     elif request.method == 'DELETE':
-        invoice = Invoices.query.get(id)
+        invoice = Invoice.query.get(id)
         invoice.delete()
         return jsonify('Borrado'),200
 
     elif request.method == "POST":
-        invoice = Invoices()
+        invoice = Invoice()
         invoice.email_paypal = request.json.get("email_paypal", "")
         invoice.payment = request.json.get("payment", "")
         invoice.date = request.json.get("date", "")
