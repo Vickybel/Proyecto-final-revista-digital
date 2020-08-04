@@ -1,9 +1,18 @@
-from flask import Flask, jsonify, request, render_template, json
+import os, datetime 
+from werkzeug.utils import secure_filename
+from flask import Flask, request, jsonify, reques, render_template, send_from_directory, json
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
 from models import db, Users, Premium, Invoices, Magazines, Admin, Carousel, Banner
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
+from models import db, User, Certificatw
+from libs.utils import allowed_file
 
+UPLOAD_FOLDER = "static"
+ALLOWED_EXTENSIONS_IMGS = {'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS_FILES = {'pdf', 'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -11,14 +20,21 @@ app.config['DEBUG'] = True
 app.config['ENV'] = 'development'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+app.config['JWT_SECRET_KEY'] = 'secret-key'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db.init_app(app)
 Migrate(app, db)
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)  # init, migrate, upgrade
 
+db.init_app(app)
+Migrate(app, db)
 CORS(app)
-
+jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
+manager = Manager(app)
+manager.add_command("db", MigrateCommand)
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
@@ -72,6 +88,7 @@ def usuario(id=None):
 
 
 @app.route('/magazine', methods=['GET', 'POST'])
+@jwt_required
 @app.route('/magazine/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def revista(id=None):
     if request.method == 'GET':
@@ -111,6 +128,22 @@ def revista(id=None):
         magazine.glance = request.json.get("glance", "")
         magazine.save()
         return jsonify(magazine.serialize()), 201
+
+        file = request.files['glace']
+
+        if file.filename == '':
+            return jsonify({"msg": "Not Selected File"}), 400
+        
+        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
+            filename = secure_filename(file.filename)
+            filename = "user_" + str(magazine.id) + "_" + filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
+
+            magazine.glace = filename
+            magazine.update()
+
+        return jsonify({"success": "Glace updated successfully!", "magazine": magazine.serialize()}), 200
+
 
 
 @app.route('/carousel', methods=['GET', 'POST'])
