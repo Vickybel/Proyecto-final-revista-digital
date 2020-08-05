@@ -1,13 +1,12 @@
 import os, datetime 
 from werkzeug.utils import secure_filename
-from flask import Flask, request, jsonify, reques, render_template, send_from_directory, json
+from flask import Flask, request, jsonify, request, render_template, send_from_directory, json
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
 from models import db, Users, Premium, Invoices, Magazines, Admin, Carousel, Banner
-from flask_bcrypt import Bcrypt
+# from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
-from models import db, User, Certificatw
 from libs.utils import allowed_file
 
 UPLOAD_FOLDER = "static"
@@ -32,7 +31,7 @@ db.init_app(app)
 Migrate(app, db)
 CORS(app)
 jwt = JWTManager(app)
-bcrypt = Bcrypt(app)
+# bcrypt = Bcrypt(app)
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)
 
@@ -87,8 +86,8 @@ def usuario(id=None):
         return jsonify(user.serialize()), 201
 
 
-@app.route('/magazine', methods=['GET', 'POST'])
 @jwt_required
+@app.route('/magazine', methods=['GET', 'POST'])
 @app.route('/magazine/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def revista(id=None):
     if request.method == 'GET':
@@ -102,7 +101,6 @@ def revista(id=None):
             magazines = list(
                 map(lambda magazine: magazine.serialize(), magazines))
             return jsonify(magazines), 200
-
 
     elif request.method == 'PUT':
         magazine = Magazines.query.get(id)
@@ -119,32 +117,36 @@ def revista(id=None):
         magazine.delete()
         return jsonify('Borrado'),200
 
-    elif request.method == "POST":
-        magazine = Magazines()
-        magazine.user_type = request.json.get("user_type", "")
-        magazine.name = request.json.get("name", "")
-        magazine.date = request.json.get("date", "")
-        magazine.body = request.json.get("body", "")
-        magazine.glance = request.json.get("glance", "")
-        magazine.save()
-        return jsonify(magazine.serialize()), 201
-
-        file = request.files['glace']
+    elif request.method == "POST":  
+        file = request.files['glance']
 
         if file.filename == '':
             return jsonify({"msg": "Not Selected File"}), 400
         
         if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
             filename = secure_filename(file.filename)
-            filename = "user_" + str(magazine.id) + "_" + filename
+            filename = "glance_" + str(magazine.id) + "_" + filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
+       
+        magazine = Magazines()
 
-            magazine.glace = filename
-            magazine.update()
+        magazine.user_type = request.form.get("user_type", "")
+        magazine.name = request.form.get("name", "")
+        magazine.date = request.form.get("date", "")
+        magazine.body = request.form.get("body", "")
+        magazine.glance = request.form.get("glance", "")
 
-        return jsonify({"success": "Glace updated successfully!", "magazine": magazine.serialize()}), 200
-
-
+        if magazine.user_type == "":
+            return jsonify({"msg": "user_type is required"}), 400
+        if magazine.name == "":
+            return jsonify({"msg": "name is required"}), 400
+        if magazine.date == "":
+            return jsonify({"msg": "date is required"}), 400
+        if magazine.body == "":
+            return jsonify({"msg": "body is required"}), 400
+        
+        magazine.save()
+        return jsonify({"success": "Glance add successfully!", "magazine": magazine.serialize()}), 201
 
 @app.route('/carousel', methods=['GET', 'POST'])
 @app.route('/carousel/<int:id>', methods=['GET', 'PUT', 'DELETE'])
