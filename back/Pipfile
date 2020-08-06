@@ -11,6 +11,14 @@ flask-script = "*"
 flask-sqlalchemy = "*"
 flask-cors = "*"
 flask-migrate = "*"
+flask-jwt-extended = "*"
+flask-bcrypt = "*"
+
+[scripts]
+start = "python app.py runserver"
+init = "python app.py db init"
+migrate = "python app.py db migrate"
+upgrade = "python app.py db upgrade"
 
 [requires]
 python_version = "3.8"

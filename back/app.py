@@ -1,7 +1,10 @@
+import datetime
 from flask import Flask, jsonify, request, render_template, json
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
 from models import db, User, Premium, Invoice, Magazine, Admin, Carousel, Banner
 
 app = Flask(__name__)
@@ -10,9 +13,13 @@ app.config['DEBUG'] = True
 app.config['ENV'] = 'development'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+app.config['JWT_SECRET_KEY'] = "secret-key"
 
 db.init_app(app)
 Migrate(app, db)
+CORS(app)
+jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)  # init, migrate, upgrade
 
@@ -216,12 +223,12 @@ def premium(id=None):
         premium.delete()
         return jsonify('Borrado'),200
 
-    elif request.method == "POST":
-        premium = Premium()
-        premium.user_id = request.json.get("user_id", "")
-        premium.status = request.json.get("status", "")
-        premium.save()
-        return jsonify(premium.serialize()), 201
+    elif request.method == "POST": 
+        premium = Premium() 
+        premium.user_id = request.json.get("user_id", "") 
+        premium.status = request.json.get("status", "") 
+        premium.save() 
+        return jsonify(premium.serialize_with_transactions_history()), 201
 
 @app.   route('/invoices', methods=['GET', 'POST'])
 @app.route('/invoices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
@@ -252,13 +259,14 @@ def invoices(id=None):
         invoice.delete()
         return jsonify('Borrado'),200
 
-    elif request.method == "POST":
-        invoice = Invoice()
-        invoice.email_paypal = request.json.get("email_paypal", "")
-        invoice.payment = request.json.get("payment", "")
-        invoice.date = request.json.get("date", "")
-        invoice.validity = request.json.get("validity", "")
-        invoice.save()
+    elif request.method == "POST": 
+        invoice = Invoice() 
+        invoice.email_paypal = request.json.get("email_paypal", "") 
+        invoice.payment = request.json.get("payment", "") 
+        invoice.date = request.json.get("date", "") 
+        invoice.validity = request.json.get("validity", "") 
+        invoice.premium = request.json.get("premium", "") 
+        invoice.save() 
         return jsonify(invoice.serialize()), 201
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -292,6 +300,30 @@ def admin(id=None):
         admin.user_id = request.json.get("user_id", "")
         admin.save()
         return jsonify(admin.serialize()), 201
+
+@app.route("/register", methods=['POST'])
+def register():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if not email: 
+        return jsonify({"msg": "Email is required"}), 400
+    if not password: 
+        return jsonify({"msg": "Password is required"}), 400 
+
+    user = User.query.filter_by(email=email).first()
+    if user:
+        return jsonify({"msg": "User already exist"}), 
+        
+    user = User()
+    user.email = email
+    user.password = bcrypt.generate_password_hash(password)
+    user.name = request.json.get("name", "")
+    user.last_name = request.json.get("last_name", "")
+    user.date = request.json.get("date", "")
+
+    user.save()
+    return jsonify({"Success": "Register successfully!, please Log In"}), 200
 
 if __name__ == "__main__":
     manager.run()

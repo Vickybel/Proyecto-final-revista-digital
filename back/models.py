@@ -1,18 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
-
 db = SQLAlchemy()
 
-
 class User(db.Model):
-    __tablename__ = 'users'
+    _tablename_ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(200), nullable=False, unique=True)
+    password = db.Column(db.String(200), nullable=False)
     name = db.Column(db.String(200), nullable=False)
     last_name = db.Column(db.String(200), nullable=False)
     date = db.Column(db.String(200), nullable=False)
-    avatar = db.Column(db.String(200), nullable=False)
-    premium = db.relationship("Premium", backref="users", uselist=False)
-    admin = db.relationship("Admin", backref="users", uselist=False)
+    avatar = db.Column(db.String(200), default="sin-foto.png")
+    premium = db.relationship("Premium", backref="users", uselist=False, lazy=True)
+    admin = db.relationship("Admin", backref="users", uselist=False, lazy=True)
 
     def save(self):
         db.session.add(self)  # INSERT INTO
@@ -35,15 +34,14 @@ class User(db.Model):
             "avatar": self.avatar,
         }
 
-
 class Invoice(db.Model):
-    __tablename__ = 'invoices'
+    _tablename_ = 'invoices'
     id = db.Column(db.Integer, primary_key=True)
     email_paypal = db.Column(db.String(200), nullable=False)
     payment = db.Column(db.String(200), nullable=False)
     date = db.Column(db.String(200), nullable=False)  # fecha de pago
     validity = db.Column(db.String(200), nullable=False)# fecha de expiracion de pago
-    premium = db.relationship("Premium", backref="invoices")
+    premium = db.Column(db.Integer, db.ForeignKey("premiums.id"), nullable=False)
 
     def save(self):
         db.session.add(self)  # INSERT INTO
@@ -62,9 +60,20 @@ class Invoice(db.Model):
             "email_paypal": self.email_paypal,
             "payment": self.payment,
             "date": self.date,
-            "validity": self.validity
+            "validity": self.validity,
+            "premium": {
+                "id": self.premiums.id,
+                "status": self.premiums.status,
+                "user": {
+                "id": self.premiums.users.id,
+                "email": self.premiums.users.email,
+                "name": self.premiums.users.name,
+                "last_name": self.premiums.users.last_name,
+                "date": self.premiums.users.date,
+                "avatar": self.premiums.users.avatar
+                }
+            }
         }
-
 
 class Premium(db.Model):
     __tablename__ = 'premiums'
@@ -72,7 +81,7 @@ class Premium(db.Model):
     status = db.Column(db.String(200), nullable=False)
     transactions = db.Column(db.Integer, db.ForeignKey("invoices.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    magazine = db.relationship("Magazine", backref="premiums", uselist=False)
+    magazine = db.relationship("Magazine", backref="premiums", uselist=False, lazy= True)
 
     def save(self):
         db.session.add(self)  # INSERT INTO
@@ -103,6 +112,7 @@ class Premium(db.Model):
         return{
             "id": self.id,
             "status": self.status,
+            "user": self.users.id,
             "transactions": {
                 "invoices_id": self.invoices.id,
                 "email_paypal": self.invoices.email_paypal,
@@ -115,7 +125,7 @@ class Premium(db.Model):
 class Admin(db.Model):
     __tablename__ = 'admins'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     magazine = db.relationship("Magazines", backref="admin", uselist=False)
     banner = db.relationship("Banner", backref="admin", uselist=False)
     carousel = db.relationship("Carousel", backref="admin", uselist=False)
