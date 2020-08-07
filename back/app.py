@@ -5,7 +5,8 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
-from models import db, User, Premium, Invoice, Magazine, Admin, Carousel, Banner
+from models import db, User, Premium, Invoice, Admin, Magazine, Carousel, Banner
+#
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -44,16 +45,15 @@ def usuario(id=None):
             return jsonify(users), 200
 
     elif request.method == 'PUT':
+        email = request.json.get("email", None)
+
         user = User.query.get(id)
-        user.email = request.json.get("email", "")
+        user.email = email
+        user.password = bcrypt.generate_password_hash(password)
         user.name = request.json.get("name", "")
         user.last_name = request.json.get("last_name", "")
         user.date = request.json.get("date", "")
         user.avatar= request.json.get("avatar", "")
-        # premium = Premium()
-        # premium.history = "activo"
-        # premium.status = True
-        # user.premium = premium
         user.update()
         return jsonify('Actualizado correctamente'), 200
 # https://www.free-css.com/assets/files/free-css-templates/preview/page254/auricle/
@@ -63,16 +63,26 @@ def usuario(id=None):
         return jsonify('Borrado'),200
 
     elif request.method == "POST":
+        email = request.json.get("email", None)
+        password = request.json.get("password", None)
+
+        if not email: 
+            return jsonify({"msg": "Email is required"}), 400
+        if not password: 
+            return jsonify({"msg": "Password is required"}), 400 
+
+        user = User.query.filter_by(email=email).first()
+        if user:
+            return jsonify({"msg": "User already exist"}), 
+     
         user = User()
-        user.email = request.json.get("email", "")
+        user.email = email
+        user.password = bcrypt.generate_password_hash(password)
         user.name = request.json.get("name", "")
         user.last_name = request.json.get("last_name", "")
         user.date = request.json.get("date", "")
         user.avatar= request.json.get("avatar", "")
-        # premium = Premium()
-        # premium.history = "activo"
-        # premium.status = True
-        # user.premium = premium
+
         user.save()
         return jsonify(user.serialize()), 201
 
@@ -324,6 +334,8 @@ def register():
 
     user.save()
     return jsonify({"Success": "Register successfully!, please Log In"}), 200
+
+
 
 if __name__ == "__main__":
     manager.run()
