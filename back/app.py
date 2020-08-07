@@ -5,7 +5,7 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
 from models import db, Users, Premium, Invoices, Magazines, Admin, Carousel, Banner
-# from flask_bcrypt import Bcrypt
+#from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
 from libs.utils import allowed_file
 
@@ -122,13 +122,14 @@ def revista(id=None):
 
         if file.filename == '':
             return jsonify({"msg": "Not Selected File"}), 400
+
+        magazine = Magazines()
         
         if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
             filename = secure_filename(file.filename)
             filename = "glance_" + str(magazine.id) + "_" + filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
        
-        magazine = Magazines()
 
         magazine.user_type = request.form.get("user_type", "")
         magazine.name = request.form.get("name", "")

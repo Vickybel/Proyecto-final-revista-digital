@@ -14,6 +14,7 @@ export const Admin_magazine = () => {
 			<br />
 			<label>Glance</label>
 			<input type="file" name="glance" onChange={actions.handleFile} />
+			<input type="submit" value="Submit" onChange={actions.handleFile} />
 		</form>
 	);
 };

@@ -13,7 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			url_magazine: "https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/magazine",
+			url_magazine: "https://5000-b8b51ae6-b147-4b20-bf2b-061f1de363ad.ws-us02.gitpod.io/magazine",
 			magazines: [],
 			banners: [],
 			carousels: [],
