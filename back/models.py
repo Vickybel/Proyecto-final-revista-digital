@@ -9,8 +9,9 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     name = db.Column(db.String(200), nullable=False)
     last_name = db.Column(db.String(200), nullable=False)
-    date = db.Column(db.String(200), nullable=False)
+    date = db.Column(db.String(200), nullable=True)
     avatar = db.Column(db.String(200), default="sin-foto.png")
+    active = db.Column(db.Boolean, default= True)
     premium = db.relationship("Premium", foreign_keys="Premium.user_id", backref="user", uselist=False, lazy=True)
 
     def save(self):
@@ -28,11 +29,11 @@ class User(db.Model):
         return{
             "id": self.id,
             "email": self.email,
-            "passsword": self.password,
             "name": self.name,
             "last_name": self.last_name,
             "date": self.date,
             "avatar": self.avatar,
+            "active": self.active
         }
 
 class Premium(db.Model):
@@ -73,13 +74,13 @@ class Premium(db.Model):
         return{
             "id": self.id,
             "status": self.status,
-            "user": self.users.id,
+            "user": self.user.id,
             "transactions": {
-                "invoices_id": self.invoices.id,
-                "email_paypal": self.invoices.email_paypal,
-                "payment": self.invoices.payment,
-                "date": self.invoices.date,
-                "validity": self.invoices.validity
+                "invoices_id": self.invoice.id,
+                "email_paypal": self.invoice.email_paypal,
+                "payment": self.invoice.payment,
+                "date": self.invoice.date,
+                "validity": self.invoice.validity
             }
         }
 

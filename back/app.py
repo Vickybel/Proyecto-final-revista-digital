@@ -56,7 +56,7 @@ def usuario(id=None):
         user.avatar= request.json.get("avatar", "")
         user.update()
         return jsonify('Actualizado correctamente'), 200
-# https://www.free-css.com/assets/files/free-css-templates/preview/page254/auricle/
+    # https://www.free-css.com/assets/files/free-css-templates/preview/page254/auricle/
     elif request.method == 'DELETE':
         user = User.query.get(id)
         user.delete()
@@ -217,7 +217,7 @@ def premium(id=None):
         else:
             premiums = Premium.query.all()
             premiums = list(
-                map(lambda premium: premium.serialize_with_transactions_history(), premiums))
+                map(lambda premium: premium.serialize(), premiums))
             return jsonify(premiums), 200
 
     elif request.method == 'PUT':
@@ -238,7 +238,7 @@ def premium(id=None):
         premium.user_id = request.json.get("user_id", "") 
         premium.status = request.json.get("status", "") 
         premium.save() 
-        return jsonify(premium.serialize_with_transactions_history()), 201
+        return jsonify(premium.serialize()), 201
 
 @app.   route('/invoices', methods=['GET', 'POST'])
 @app.route('/invoices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
@@ -311,7 +311,7 @@ def admin(id=None):
         admin.save()
         return jsonify(admin.serialize()), 201
 
-@app.route("/register", methods=['POST'])
+@app.route("/login", methods=['POST'])
 def register():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
@@ -321,19 +321,22 @@ def register():
     if not password: 
         return jsonify({"msg": "Password is required"}), 400 
 
-    user = User.query.filter_by(email=email).first()
-    if user:
-        return jsonify({"msg": "User already exist"}), 
-        
-    user = User()
-    user.email = email
-    user.password = bcrypt.generate_password_hash(password)
-    user.name = request.json.get("name", "")
-    user.last_name = request.json.get("last_name", "")
-    user.date = request.json.get("date", "")
+    user = User.query.filter_by(email=email, active= True).first()
+    
+    if not user:
+        return jsonify({"msg": "Email/Password are incorrect"})
 
-    user.save()
-    return jsonify({"Success": "Register successfully!, please Log In"}), 200
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"msg": "Email/Password are incorrect"}) 
+
+    expires= datetime.timedelta(days=7)
+
+    data = {
+        "acces_token": create_access_token(identity=user.email, expires_delta= expires),
+        "user": user.serialize()
+    }
+
+    return jsonify({"Success": "Log In successfully!", "data": data }), 200
 
 
 
