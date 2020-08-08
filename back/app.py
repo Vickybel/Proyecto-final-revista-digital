@@ -1,29 +1,18 @@
-<<<<<<< HEAD
-import datetime
-from flask import Flask, jsonify, request, render_template, json
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
-from flask_cors import CORS
-from flask_bcrypt import Bcrypt
-from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
-from models import db, User, Premium, Invoice, Admin, Magazine, Carousel, Banner
-#
-=======
+
 import os, datetime 
 from werkzeug.utils import secure_filename
 from flask import Flask, request, jsonify, request, render_template, send_from_directory, json
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_cors import CORS
-from models import db, Users, Premium, Invoices, Magazines, Admin, Carousel, Banner
-#from flask_bcrypt import Bcrypt
+from models import db, User, Premium, Invoice, Magazine, Admin, Carousel, Banner
+from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
 from libs.utils import allowed_file
 
 UPLOAD_FOLDER = "static"
 ALLOWED_EXTENSIONS_IMGS = {'png', 'jpg', 'jpeg', 'gif'}
 ALLOWED_EXTENSIONS_FILES = {'pdf', 'png', 'jpg', 'jpeg'}
->>>>>>> d13859e5f6f3acfc686f123cb254d231354ac2ac
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -31,12 +20,8 @@ app.config['DEBUG'] = True
 app.config['ENV'] = 'development'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
-<<<<<<< HEAD
-app.config['JWT_SECRET_KEY'] = "secret-key"
-=======
 app.config['JWT_SECRET_KEY'] = 'secret-key'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
->>>>>>> d13859e5f6f3acfc686f123cb254d231354ac2ac
 
 db.init_app(app)
 Migrate(app, db)
@@ -49,13 +34,10 @@ manager.add_command("db", MigrateCommand)  # init, migrate, upgrade
 db.init_app(app)
 Migrate(app, db)
 CORS(app)
-<<<<<<< HEAD
-=======
 jwt = JWTManager(app)
-# bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(app)
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)
->>>>>>> d13859e5f6f3acfc686f123cb254d231354ac2ac
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
@@ -116,12 +98,7 @@ def usuario(id=None):
 
         user.save()
         return jsonify(user.serialize()), 201
-
-<<<<<<< HEAD
-=======
-
-@jwt_required
->>>>>>> d13859e5f6f3acfc686f123cb254d231354ac2ac
+        
 @app.route('/magazine', methods=['GET', 'POST'])
 @app.route('/magazine/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def revista(id=None):
@@ -153,18 +130,6 @@ def revista(id=None):
         magazine.delete()
         return jsonify('Borrado'),200
 
-<<<<<<< HEAD
-    elif request.method == "POST":
-        magazine = Magazine()
-        magazine.user_type = request.json.get("user_type", "")
-        magazine.name = request.json.get("name", "")
-        magazine.date = request.json.get("date", "")
-        magazine.body = request.json.get("body", "")
-        magazine.glance = request.json.get("glance", "")
-        magazine.save()
-        return jsonify(magazine.serialize()), 201
-
-=======
     elif request.method == "POST":  
         file = request.files['glance']
 
@@ -197,7 +162,6 @@ def revista(id=None):
         magazine.save()
         return jsonify({"success": "Glance add successfully!", "magazine": magazine.serialize()}), 201
 
->>>>>>> d13859e5f6f3acfc686f123cb254d231354ac2ac
 @app.route('/carousel', methods=['GET', 'POST'])
 @app.route('/carousel/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def carousel(id=None):
