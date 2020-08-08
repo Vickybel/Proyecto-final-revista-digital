@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-export const Admin_magazine = () => {
+export const Admin_carousel = () => {
 	const { store, actions } = useContext(Context);
 
 	return (

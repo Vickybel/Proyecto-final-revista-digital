@@ -1,61 +1,20 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
 			url_magazine: "https://5000-b8b51ae6-b147-4b20-bf2b-061f1de363ad.ws-us02.gitpod.io/magazine",
 			magazines: [],
 			banners: [],
 			carousels: [],
-
 			magazine_name: null,
 			magazine_date: null,
 			magazine_glance: null,
 			magazine_body: null
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			},
 			getMagazine: () => {
-<<<<<<< HEAD
-				// const store = getStore();
-				//fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/magazine")
-				fetch("https://5000-e415c755-f0d4-4272-8c20-df2b48e34360.ws-us02.gitpod.io/premium")
-=======
+				fetch("https://5000-e415c755-f0d4-4272-8c20-df2b48e34360.ws-us02.gitpod.io/premium");
 				const store = getStore();
-				fetch("https://5000-dcf25949-9e95-4385-8b93-6191affea14e.ws-us02.gitpod.io/magazine")
->>>>>>> d13859e5f6f3acfc686f123cb254d231354ac2ac
+				fetch("https://5000-c9c6b521-788f-42eb-ae49-fadcea8f2c1a.ws-us02.gitpod.io/magazine")
 					.then(res => res.json())
 					.then(data => {
 						setStore({ magazines: data });
@@ -79,15 +38,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				let formData = new FormData();
 				formData.append("glance", store.magazine_glance);
-				// formData.append("name", store.magazine_name);
-				// formData.append("date", store.magazine_date);
+				formData.append("name", store.magazine_name);
+				formData.append("date", store.magazine_date);
 
 				//formData.append("name", store.name);
 				//formData.append("lastname", store.lastname);
 
 				// fetch(`${store.apiUrl}/update-profile`, {
 
-				fetch("https://5000-dcf25949-9e95-4385-8b93-6191affea14e.ws-us02.gitpod.io/magazine", {
+				fetch("https://5000-c9c6b521-788f-42eb-ae49-fadcea8f2c1a.ws-us02.gitpod.io/magazine", {
 					method: "POST",
 					body: formData,
 					headers: {
