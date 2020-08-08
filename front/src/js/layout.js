@@ -11,6 +11,8 @@ import { Single } from "./views/single";
 import { Profile } from "./views/profile";
 import injectContext from "./store/appContext";
 
+import { Admin_magazine } from "./views/admin_magazine";
+
 import { Navba } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { The_View } from "./views/the_view";
@@ -35,6 +37,7 @@ export const Layout = () => {
 						<Route path="/suscriptions" component={Suscriptions} />
 						<Route path="/login" component={Login} />
 						<Route path="/single/:theid" component={Single} />
+						<Route path="/admin_magazine" component={Admin_magazine} />
 						<Route render={() => <h1>Not found!</h1>} />
 					</Switch>
 					<Footer />
