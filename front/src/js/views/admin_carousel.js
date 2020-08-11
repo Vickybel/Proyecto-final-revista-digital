@@ -1,34 +1,84 @@
-import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import React, { useContext } from "react";
 
-export const Admin_carousel = () => {
+export const Admin_magazine = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<Form.Row className="formulario">
-			<Form onSubmit={actions.handleUpdateMagazine}>
-				<Form.Group>
-					<Form.Label className="mediaplans_title display-3">Revistas</Form.Label>
-				</Form.Group>
-				<Form.Group>
-					<Form.Control placeholder="Nombre" onChange={actions.handleChange} />
-				</Form.Group>
+		<div className="container">
+			<div style={{ marginTop: "40px" }}>
+				{!!store.alertCreateNewContact && (
+					<div className="row">
+						<div className="col-12">
+							<div className="alert alert-success alert-dismissible fade show" role="alert">
+								<strong>Done!</strong> New magazine created
+								<button
+									onClick={actions.clearNotifications}
+									type="button"
+									className="close"
+									data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				)}
+			</div>
+			<h1 className="text-center mt-5">Add a new magazine</h1>
+			<form id="createContact" onSubmit={e => actions.createNewMagazine(e)}>
+				<div className="form-group">
+					<label>Full Name</label>
+					<input
+						type="text"
+						className="form-control"
+						placeholder="Full Name"
+						name="full_name"
+						onChange={e => actions.handleChange(e)}
+					/>
+				</div>
 
-				<Form.Group>
-					<Form.Control type="date" placeholder="Fecha" onChange={actions.handleChange} />
-				</Form.Group>
+				<div className="form-group">
+					<label>Date</label>
+					<input
+						type="date"
+						className="form-control"
+						placeholder="date"
+						name="phone"
+						onChange={e => actions.handleChange(e)}
+					/>
+				</div>
 
-				<Form>
-					<Form.Group>
-						<Form.File id="exampleFormControlFile1" label="Glance" onChange={actions.handleChange} />
-					</Form.Group>
-				</Form>
-			</Form>
-			<Button variant="primary" type="submit">
-				Enviar
-			</Button>
-		</Form.Row>
+				<div className="form-group">
+					<label>Glance</label>
+					<input
+						type="file"
+						className="form-control"
+						placeholder="file"
+						name="Glance"
+						onChange={e => actions.handleChange(e)}
+					/>
+				</div>
+				<div className="form-group">
+					<label>Body</label>
+					<input
+						type="file"
+						className="form-control"
+						placeholder="file"
+						name="Body"
+						onChange={e => actions.handleChange(e)}
+					/>
+				</div>
+
+				<button type="submit" className="btn btn-primary form-control">
+					save
+				</button>
+
+				<Link className="mt-3 w-100 text-center" to="/editions">
+					get back to magazine
+				</Link>
+			</form>
+		</div>
 	);
 };
