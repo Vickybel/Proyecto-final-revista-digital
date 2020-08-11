@@ -100,7 +100,7 @@ def usuario(id=None):
         return jsonify(user.serialize()), 201
         
 @app.route('/magazine', methods=['GET', 'POST'])
-@app.route('/magazine/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/magazine/<int:id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 @jwt_required
 def revista(id=None):
     if request.method == 'GET':
@@ -134,14 +134,45 @@ def revista(id=None):
 
     elif request.method == "POST":  
         magazine = Magazine()
-        
-        magazine.user_type = request.json.get("user_type", "")
-        magazine.name = request.json.get("name", "")
-        magazine.date = request.json.get("date", "")
-        magazine.body = request.json.get("body", "")
-        magazine.glance = request.json.get("glance", "")
-        magazine.premium_id = request.json.get("premium_id", "")
-        magazine.admin_id = request.json.get("admin_id", "")
+        file = request.files['glance']
+        document = request.files['body']
+
+        if file.filename == '':
+            return jsonify({"msg": "Not Selected File"}), 400
+        if document.filename == '':
+            return jsonify({"msg": "Not Selected File"}), 400
+
+        if document and allowed_file(document.filename, ALLOWED_EXTENSIONS_FILES):
+            
+            email=get_jwt_identity()
+            magazineId= Magazine.query.filter_by(id=id).first()
+            
+            if magazineId is not None:
+                return jsonify({"msg" : "Este ID ya existe, intenta hacer post con uno distinto"})
+
+            documentname = secure_filename(document.filename)
+            documentname = "body_" + str(id) + "_" + documentname
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/documents", documentname))
+
+        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
+            
+            email=get_jwt_identity()
+            magazineId= Magazine.query.filter_by(id=id).first()
+            
+            if magazineId is not None:
+                return jsonify({"msg" : "Este ID ya existe, intenta hacer post con uno distinto"})
+
+            filename = secure_filename(file.filename)
+            filename = "glance_" + str(id) + "_" + filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
+
+        magazine.user_type = request.form.get("user_type", "")
+        magazine.name = request.form.get("name", "")
+        magazine.date = request.form.get("date", "")
+        magazine.body = documentname
+        magazine.glance = filename
+        magazine.premium_id = request.form.get("premium_id", "")
+        magazine.admin_id = request.form.get("admin_id", "")
 
         if magazine.user_type == "":
             return jsonify({"msg": "user_type is required"}), 400
@@ -151,67 +182,12 @@ def revista(id=None):
             return jsonify({"msg": "date is required"}), 400
         if magazine.body == "":
             return jsonify({"msg": "body is required"}), 400
-        
+
         magazine.save()
         return jsonify(magazine.serialize()), 201
 
-      
-@app.route('/magazine-foto', methods=['GET', 'POST'])
-@app.route('/magazine-foto/<int:id>', methods=['GET', 'PUT', 'DELETE'])
-@jwt_required
-def revista_foto(id=None):
-    if request.method == 'GET':
-        if id is not None:
-            magazine = Magazine.query.get(id)
-            if magazine:
-                return jsonify(magazine.serialize()), 200
-            return jsonify({"msg": "Magazine not found!"}), 404
-        else:
-            magazines = Magazine.query.all()
-            magazines = list(
-                map(lambda magazine: magazine.serialize(), magazines))
-            return jsonify(magazines), 200
-
-    elif request.method == 'PUT':
-        magazine = Magazine.query.get(id)
-        file = request.files['glance']
-
-        if file.filename == '':
-            return jsonify({"msg": "Not Selected File"}), 400
-
-        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
-            filename = secure_filename(file.filename)
-            filename = "glance_" + str(magazine.id) + "_" + filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
-       
-        magazine.glance = request.form.get("glance", "")
-        magazine.update()
-        return jsonify('Actualizado correctamente'), 200
-
-    elif request.method == 'DELETE':
-        magazine = Magazine.query.get(id)
-        magazine.delete()
-        return jsonify('Borrado'),200
-
-    elif request.method == "POST":  
-        magazine = Magazine.query.get(id)
-        file = request.files['glance']
-
-        if file.filename == '':
-            return jsonify({"msg": "Not Selected File"}), 400
-
-        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
-            filename = secure_filename(file.filename)
-            filename = "glance_" + str(magazine.id) + "_" + filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
-       
-        magazine.glance = request.form.get("glance", "")
-        magazine.update()
-        return jsonify('Actualizado correctamente'), 200
-
-
 @app.route('/carousel', methods=['GET', 'POST'])
-@app.route('/carousel/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/carousel/<int:id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def carousel(id=None):
     if request.method == 'GET':
         if id is not None:
@@ -238,19 +214,44 @@ def carousel(id=None):
         carousel = Carousel.query.get(id)
         carousel.delete()
         return jsonify('Borrado'),200
-       
 
     elif request.method == "POST":
         carousel = Carousel()
-        carousel.admin_id = request.json.get("admin_id", "")
-        carousel.name = request.json.get("name", "")
-        carousel.size = request.json.get("size", "")
-        carousel.body = request.json.get("body", "")
+        file = request.files['body']
+
+        if file.filename == '':
+            return jsonify({"msg": "Not Selected File"}), 400
+
+        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
+            email=get_jwt_identity()
+            carouselId= Carousel.query.filter_by(id=id).first()
+
+            if carouselId is not None:
+                return jsonify({"msg" : "Este ID ya existe, intenta hacer post con uno distinto"})
+
+            filename = secure_filename(file.filename)
+            filename = "carousel_" + str(id) + "_" + filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
+
+        carousel.admin_id = request.form.get("admin_id", "")
+        carousel.name = request.form.get("name", "")
+        carousel.size = request.form.get("size", "")
+        carousel.body = filename
+
+        if carousel.admin_id == "":
+            return jsonify({"msg": "admin is required"}), 400
+        if carousel.name == "":
+            return jsonify({"msg": "name is required"}), 400
+        if carousel.size == "":
+            return jsonify({"msg": "size is required"}), 400
+        if carousel.body == "":
+            return jsonify({"msg": "body is required"}), 400
+
         carousel.save()
         return jsonify(carousel.serialize()), 201
 
 @app.route('/banner', methods=['GET', 'POST'])
-@app.route('/banner/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/banner/<int:id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def banner(id=None):
     if request.method == 'GET':
         if id is not None:
@@ -280,10 +281,26 @@ def banner(id=None):
        
     elif request.method == "POST":
         banner = Banner()
-        banner.admin_id = request.json.get("admin_id", "")
-        banner.name = request.json.get("name", "")
-        banner.size = request.json.get("size", "")
-        banner.body = request.json.get("body", "")
+        file = request.files['body']
+
+        if file.filename == '':
+            return jsonify({"msg": "Not Selected File"}), 400
+
+        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
+            email=get_jwt_identity()
+            bannerId= Banner.query.filter_by(id=id).first()
+
+            if bannerId is not None:
+                return jsonify({"msg" : "Este ID ya existe, intenta hacer post con uno distinto"})
+
+            filename = secure_filename(file.filename)
+            filename = "banner_" + str(id) + "_" + filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
+
+        banner.admin_id = request.form.get("admin_id", "")
+        banner.name = request.form.get("name", "")
+        banner.size = request.form.get("size", "")
+        banner.body = filename
         banner.save()
         return jsonify(banner.serialize()), 201
 

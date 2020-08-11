@@ -155,8 +155,6 @@ class Admin(db.Model):
             }
         }    
 
-
-
 class Magazine(db.Model):
     __tablename__ = 'magazines'
     id = db.Column(db.Integer, primary_key=True)
@@ -243,7 +241,7 @@ class Banner(db.Model):
     def serialize(self):
         return{
             "id": self.id,
-            "admin_id": self.admins.id,
+            "admin_id": self.admin.id,
             "name": self.name,
             "size": self.size,
             "body": self.body
