@@ -48,14 +48,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			getMagazine: () => {
-<<<<<<< HEAD
-				// const store = getStore();
-				//fetch("https://5000-ddd8b02e-6351-44cc-82b7-00ec1e966a70.ws-us02.gitpod.io/magazine")
-				fetch("https://5000-e415c755-f0d4-4272-8c20-df2b48e34360.ws-us02.gitpod.io/premium")
-=======
 				const store = getStore();
 				fetch("https://5000-dcf25949-9e95-4385-8b93-6191affea14e.ws-us02.gitpod.io/magazine")
->>>>>>> d13859e5f6f3acfc686f123cb254d231354ac2ac
 					.then(res => res.json())
 					.then(data => {
 						setStore({ magazines: data });

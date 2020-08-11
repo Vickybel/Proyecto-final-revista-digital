@@ -1,4 +1,3 @@
-
 import os, datetime 
 from werkzeug.utils import secure_filename
 from flask import Flask, request, jsonify, request, render_template, send_from_directory, json
@@ -59,6 +58,7 @@ def usuario(id=None):
 
     elif request.method == 'PUT':
         email = request.json.get("email", None)
+        password = request.json.get("password", None)
 
         user = User.query.get(id)
         user.email = email
@@ -101,6 +101,7 @@ def usuario(id=None):
         
 @app.route('/magazine', methods=['GET', 'POST'])
 @app.route('/magazine/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required
 def revista(id=None):
     if request.method == 'GET':
         if id is not None:
@@ -116,12 +117,13 @@ def revista(id=None):
 
     elif request.method == 'PUT':
         magazine = Magazine.query.get(id)
-        magazine.user_type = request.json.get("user_type", "")
-        magazine.name = request.json.get("name", "")
-        magazine.date = request.json.get("date", "")
-        magazine.body = request.json.get("body", "")
+        magazine.user_type = request.json.get("user_type", "g")
+        magazine.name = request.json.get("name", "g")
+        magazine.date = request.json.get("date", "g")
+        magazine.body = request.json.get("body", "g")
         magazine.glance = request.json.get("glance", "")
-        magazine.premium_id= request.json.get("premium_id", "")
+        magazine.premium_id= request.json.get("premium_id", "1")
+        magazine.admin_id= request.json.get("admin_id", "1")
         magazine.update()
         return jsonify('Actualizado correctamente'), 200
 
@@ -131,24 +133,15 @@ def revista(id=None):
         return jsonify('Borrado'),200
 
     elif request.method == "POST":  
-        file = request.files['glance']
-
-        if file.filename == '':
-            return jsonify({"msg": "Not Selected File"}), 400
-
-        magazine = Magazines()
+        magazine = Magazine()
         
-        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
-            filename = secure_filename(file.filename)
-            filename = "glance_" + str(magazine.id) + "_" + filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
-       
-
-        magazine.user_type = request.form.get("user_type", "")
-        magazine.name = request.form.get("name", "")
-        magazine.date = request.form.get("date", "")
-        magazine.body = request.form.get("body", "")
-        magazine.glance = request.form.get("glance", "")
+        magazine.user_type = request.json.get("user_type", "")
+        magazine.name = request.json.get("name", "")
+        magazine.date = request.json.get("date", "")
+        magazine.body = request.json.get("body", "")
+        magazine.glance = request.json.get("glance", "")
+        magazine.premium_id = request.json.get("premium_id", "")
+        magazine.admin_id = request.json.get("admin_id", "")
 
         if magazine.user_type == "":
             return jsonify({"msg": "user_type is required"}), 400
@@ -160,7 +153,62 @@ def revista(id=None):
             return jsonify({"msg": "body is required"}), 400
         
         magazine.save()
-        return jsonify({"success": "Glance add successfully!", "magazine": magazine.serialize()}), 201
+        return jsonify(magazine.serialize()), 201
+
+      
+@app.route('/magazine-foto', methods=['GET', 'POST'])
+@app.route('/magazine-foto/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required
+def revista_foto(id=None):
+    if request.method == 'GET':
+        if id is not None:
+            magazine = Magazine.query.get(id)
+            if magazine:
+                return jsonify(magazine.serialize()), 200
+            return jsonify({"msg": "Magazine not found!"}), 404
+        else:
+            magazines = Magazine.query.all()
+            magazines = list(
+                map(lambda magazine: magazine.serialize(), magazines))
+            return jsonify(magazines), 200
+
+    elif request.method == 'PUT':
+        magazine = Magazine.query.get(id)
+        file = request.files['glance']
+
+        if file.filename == '':
+            return jsonify({"msg": "Not Selected File"}), 400
+
+        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
+            filename = secure_filename(file.filename)
+            filename = "glance_" + str(magazine.id) + "_" + filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
+       
+        magazine.glance = request.form.get("glance", "")
+        magazine.update()
+        return jsonify('Actualizado correctamente'), 200
+
+    elif request.method == 'DELETE':
+        magazine = Magazine.query.get(id)
+        magazine.delete()
+        return jsonify('Borrado'),200
+
+    elif request.method == "POST":  
+        magazine = Magazine.query.get(id)
+        file = request.files['glance']
+
+        if file.filename == '':
+            return jsonify({"msg": "Not Selected File"}), 400
+
+        if file and allowed_file(file.filename, ALLOWED_EXTENSIONS_IMGS):
+            filename = secure_filename(file.filename)
+            filename = "glance_" + str(magazine.id) + "_" + filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+"/images", filename))
+       
+        magazine.glance = request.form.get("glance", "")
+        magazine.update()
+        return jsonify('Actualizado correctamente'), 200
+
 
 @app.route('/carousel', methods=['GET', 'POST'])
 @app.route('/carousel/<int:id>', methods=['GET', 'PUT', 'DELETE'])
@@ -274,7 +322,7 @@ def premium(id=None):
         premium.save() 
         return jsonify(premium.serialize()), 201
 
-@app.   route('/invoices', methods=['GET', 'POST'])
+@app.route('/invoices', methods=['GET', 'POST'])
 @app.route('/invoices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def invoices(id=None):
     if request.method == 'GET':
@@ -346,7 +394,7 @@ def admin(id=None):
         return jsonify(admin.serialize()), 201
 
 @app.route("/login", methods=['POST'])
-def register():
+def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
@@ -364,6 +412,37 @@ def register():
         return jsonify({"msg": "Email/Password are incorrect"}) 
 
     expires= datetime.timedelta(days=7)
+
+    data = {
+        "acces_token": create_access_token(identity=user.email, expires_delta= expires),
+        "user": user.serialize()
+    }
+
+    return jsonify({"Success": "Log In successfully!", "data": data }), 200
+
+
+@app.route("/admin-login", methods=['POST'])
+def login_admin():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if not email: 
+        return jsonify({"msg": "Email is required"}), 400
+    if not password: 
+        return jsonify({"msg": "Password is required"}), 400 
+
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        return jsonify({"msg": "Email/Password are incorrect"})
+
+    if not user.admin:
+        return jsonify({"msg": "Email/Password are incorrect"})
+
+    if not bcrypt.check_password_hash(user.password, password):
+        return jsonify({"msg": "Email/Password are incorrect"}) 
+
+    expires= datetime.timedelta(days=1)
 
     data = {
         "acces_token": create_access_token(identity=user.email, expires_delta= expires),

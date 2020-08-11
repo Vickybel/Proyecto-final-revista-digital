@@ -13,6 +13,7 @@ class User(db.Model):
     avatar = db.Column(db.String(200), default="sin-foto.png")
     active = db.Column(db.Boolean, default= True)
     premium = db.relationship("Premium", foreign_keys="Premium.user_id", backref="user", uselist=False, lazy=True)
+    admin = db.relationship("Admin", foreign_keys="Admin.user_id", backref="user", uselist=False, lazy=True)
 
     def save(self):
         db.session.add(self)  # INSERT INTO
@@ -86,7 +87,7 @@ class Premium(db.Model):
 
 
 class Invoice(db.Model):
-    _tablename_ = 'invoices'
+    __tablename__ = 'invoices'
     id = db.Column(db.Integer, primary_key=True)
     email_paypal = db.Column(db.String(200), nullable=False)
     payment = db.Column(db.String(200), nullable=False)
@@ -129,9 +130,10 @@ class Invoice(db.Model):
 class Admin(db.Model):
     __tablename__ = 'admins'
     id = db.Column(db.Integer, primary_key=True)
-    magazine = db.relationship("Magazine", backref="admins", uselist=False)
-    banner = db.relationship("Banner", backref="admins", uselist=False)
-    carousel = db.relationship("Carousel", backref="admins", uselist=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    magazine = db.relationship("Magazine", backref="admin", lazy = True)
+    banner = db.relationship("Banner", backref="admin", lazy = True)
+    carousel = db.relationship("Carousel", backref="admin", lazy = True)
 
     def save(self):
         db.session.add(self)  # INSERT INTO
@@ -147,7 +149,12 @@ class Admin(db.Model):
     def serialize(self):
         return{
             "id": self.id,
-        }
+            "user":{
+                "id": self.user.id,
+                "email": self.user.email,
+            }
+        }    
+
 
 
 class Magazine(db.Model):
@@ -178,11 +185,10 @@ class Magazine(db.Model):
             "user_type": self.user_type,
             "name": self.name,
             "date": self.date,
-            "body": self.body,
+            "body": self.body,                
             "glance": self.glance,
-            "premium_id": self.premium_id
+            "premium_id": self.premium.id
         }
-
 
 class Carousel(db.Model):
     __tablename__ = 'carousels'
