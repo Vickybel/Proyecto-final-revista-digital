@@ -9,6 +9,7 @@ import { Suscriptions } from "./views/suscriptions";
 import { Login } from "./views/login";
 import { Single } from "./views/single";
 import { Profile } from "./views/profile";
+import { Magazine } from "./views/magazine";
 import injectContext from "./store/appContext";
 
 import { Admin_magazine } from "./views/admin_magazine";
@@ -37,6 +38,7 @@ export const Layout = () => {
 						<Route path="/theview" component={The_View} />
 						<Route path="/suscriptions" component={Suscriptions} />
 						<Route path="/admin_magazine" component={Admin_magazine} />
+						<Route path="/magazine" component={Magazine} />
 						<Route path="/login" component={Login} />
 						<Route path="/single/:theid" component={Single} />
 
