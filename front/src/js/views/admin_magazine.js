@@ -75,8 +75,8 @@ export const Admin_magazine = () => {
 					save
 				</button>
 
-				<Link className="mt-3 w-100 text-center" to="/editions">
-					get back to magazine
+				<Link className="mt-3 w-100 text-center" to="/admin">
+					get back to principal menu
 				</Link>
 			</form>
 		</div>

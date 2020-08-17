@@ -9,15 +9,18 @@ import { Suscriptions } from "./views/suscriptions";
 import { Login } from "./views/login";
 import { Single } from "./views/single";
 import { Profile } from "./views/profile";
-import { Magazine } from "./views/magazine";
+
 import injectContext from "./store/appContext";
 
+import { Admin_banner } from "./views/admin_banner";
 import { Admin_magazine } from "./views/admin_magazine";
+import { Admin_carousel } from "./views/admin_carousel";
+import { Admin } from "./views/admin";
+import { Login_admin } from "./views/login_admin";
 
 import { Navba } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { The_View } from "./views/the_view";
-import { Admin_banner } from "./views/admin_banner";
 
 //create your first component
 export const Layout = () => {
@@ -38,8 +41,11 @@ export const Layout = () => {
 						<Route path="/theview" component={The_View} />
 						<Route path="/suscriptions" component={Suscriptions} />
 						<Route path="/admin_magazine" component={Admin_magazine} />
-						<Route path="/magazine" component={Magazine} />
+						<Route path="/admin_carousel" component={Admin_carousel} />
+						<Route path="/admin_banner" component={Admin_banner} />
+						<Route path="/admin" component={Admin} />
 						<Route path="/login" component={Login} />
+						<Route path="/login_admin" component={Login_admin} />
 						<Route path="/single/:theid" component={Single} />
 
 						<Route render={() => <h1>Not found!</h1>} />
