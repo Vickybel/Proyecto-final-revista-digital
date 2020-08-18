@@ -1,94 +1,52 @@
-import { Link } from "react-router-dom";
-import { Context } from "../store/appContext";
-import React, { useContext } from "react";
-import { Alert } from "react-bootstrap";
+import React, { useEffect, useContext } from "react";
+import { Context } from "./../store/appContext";
+import { Card, Form, Button, Alert } from "react-bootstrap";
+import PropTypes from "prop-types";
 
-export const Admin_magazine = props => {
+export const Login_admin = props => {
+	const { history } = props;
 	const { store, actions } = useContext(Context);
-	//const { history } = props;
 
 	useEffect(() => {
-		if (!store.isAuth) history.push("/login");
+		if (store.isAuth) history.push("/admin");
 	}, []);
 
 	return (
-		<div className="container">
-			<div style={{ marginTop: "40px" }}>
-				{!!store.alertCreateNewMagazine && (
-					<div className="row">
-						<div className="col-12">
-							<div className="alert alert-success alert-dismissible fade show" role="alert">
-								<strong>Done!</strong> New magazine created
-								<button
-									onClick={actions.clearNotifications}
-									type="button"
-									className="close"
-									data-dismiss="alert"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						</div>
-					</div>
-				)}
-			</div>
-			{!!store.error && <Alert variant="danger">Hey!, aquí hay un problema, {store.error}</Alert>}
-			<h1 className="text-center mt-5">Add a new magazine</h1>
-			<form id="createContact" onSubmit={e => actions.createNewMagazine(e)}>
-				<div className="form-group">
-					<label>Full Name</label>
-					<input
-						type="text"
-						className="form-control"
-						placeholder="Full Name"
-						name="magazine_name"
-						onChange={e => actions.handleChange(e)}
-					/>
-				</div>
+		<Card className="card_login">
+			<Form onSubmit={e => actions.getLogin(e, history)}>
+				<Form.Group controlId="formBasicEmail">
+					{!!store.error && <Alert variant="danger">Hey!, aquí hay un problema, {store.error}</Alert>}
 
-				<div className="form-group">
-					<label>Date</label>
-					<input
-						type="date"
-						className="form-control"
-						placeholder="date"
-						name="magazine_date"
-						onChange={e => actions.handleChange(e)}
+					<Form.Label>Email address</Form.Label>
+					<Form.Control
+						type="email"
+						placeholder="Enter email"
+						name="username"
+						onChange={actions.handleChange}
 					/>
-				</div>
+					<Form.Text className="text-muted">Well never share your email with anyone else.</Form.Text>
+				</Form.Group>
 
-				<div className="form-group">
-					<label>Glance</label>
-					<input
-						type="file"
-						className="form-control"
-						placeholder="file"
-						name="magazine_glance"
-						onChange={e => actions.handleFile(e)}
+				<Form.Group controlId="formBasicPassword">
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						type="password"
+						placeholder="Password"
+						name="password"
+						onChange={actions.handleChange}
 					/>
-				</div>
-				<div className="form-group">
-					<label>Body</label>
-					<input
-						type="file"
-						className="form-control"
-						placeholder="file"
-						name="magazine_body"
-						onChange={e => actions.handleFile(e)}
-					/>
-				</div>
-
-				<button type="submit" className="btn btn-primary form-control">
-					save
-				</button>
-
-				<Link className="mt-3 w-100 text-center" to="/admin">
-					get back to principal menu
-				</Link>
-			</form>
-		</div>
+				</Form.Group>
+				<Form.Group controlId="formBasicCheckbox">
+					<Form.Check type="checkbox" label="Check me out" />
+				</Form.Group>
+				<Button variant="primary" type="submit" className="button_login">
+					Submit
+				</Button>
+			</Form>
+		</Card>
 	);
 };
-Admin_magazine.propTypes = {
-	//history: PropTypes.object
+
+Login_admin.propTypes = {
+	history: PropTypes.object
 };
