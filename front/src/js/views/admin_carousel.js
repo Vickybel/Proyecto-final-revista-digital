@@ -32,15 +32,26 @@ export const Admin_carousel = props => {
 					</div>
 				)}
 			</div>
-			<h1 className="text-center mt-5">Add a new magazine</h1>
+			<h1 className="text-center mt-5">Add a new carousel</h1>
 			<form id="createContact" onSubmit={e => actions.createNewCarousel(e)}>
 				<div className="form-group">
 					<label>Full Name</label>
 					<input
 						type="text"
 						className="form-control"
-						placeholder="Full Name"
-						name="full_name"
+						placeholder="carousel_name"
+						name="carousel_name"
+						onChange={e => actions.handleChange(e)}
+					/>
+				</div>
+
+				<div className="form-group">
+					<label>Size</label>
+					<input
+						type="text"
+						className="form-control"
+						placeholder="carousel_size"
+						name="carousel_size"
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>
@@ -50,9 +61,9 @@ export const Admin_carousel = props => {
 					<input
 						type="file"
 						className="form-control"
-						placeholder="file"
-						name="Carrusel"
-						onChange={e => actions.handleChange(e)}
+						placeholder="carousel_body"
+						name="carousel_body"
+						onChange={e => actions.handleFile(e)}
 					/>
 				</div>
 

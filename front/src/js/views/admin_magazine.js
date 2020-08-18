@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import React, { useContext } from "react";
+<<<<<<< HEAD
 import PropTypes from "prop-types";
+=======
+import { Alert } from "react-bootstrap";
+>>>>>>> 896f5e5a7d46531a2b8d80e584d09ad4bfbdba87
 
 export const Admin_magazine = props => {
 	const { store, actions } = useContext(Context);
@@ -32,6 +36,7 @@ export const Admin_magazine = props => {
 					</div>
 				)}
 			</div>
+			{!!store.error && <Alert variant="danger">Hey!, aquí hay un problema, {store.error}</Alert>}
 			<h1 className="text-center mt-5">Add a new magazine</h1>
 			<form id="createContact" onSubmit={e => actions.createNewMagazine(e)}>
 				<div className="form-group">
