@@ -32,6 +32,7 @@ const injectContext = PassedComponent => {
 			 *
 			 **/
 			state.actions.getAllMagazine();
+			state.actions.isAuthenticated();
 			//state.actions.getBanner();
 			//state.actions.getCarousel();
 		}, []);

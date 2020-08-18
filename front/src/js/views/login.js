@@ -6,6 +6,11 @@ import PropTypes from "prop-types";
 export const Login = props => {
 	const { history } = props;
 	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		if (store.isAuth) history.push("/");
+	}, []);
+
 	return (
 		<Card className="card_login">
 			<Form onSubmit={e => actions.getLogin(e, history)}>

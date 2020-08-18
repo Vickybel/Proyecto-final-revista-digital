@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "./../store/appContext";
+import { Link, withRouter } from "react-router-dom";
 import fill_murray_300x300 from "../../img/fill_murray_300x300.jpg";
 import logo_brutal from "../../img/logo-brutal.jpg";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,16 +8,17 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
+import PropTypes from "prop-types";
 
-export const Navba = () => {
+const Navba = props => {
+	const { store, actions } = useContext(Context);
+	const { history } = props;
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
-		// <nav className="navbar navbar-dark bg-dark mb-3">
-		// 	<div className="ml-auto">
-		// 		<Link to="/demo">
-		// 			<button className="btn btn-primary">Check the Context in action</button>
-		// 		</Link>
-		// 	</div>
-		// </nav>
 		<Navbar bg="dark" variant="dark" className="navbar_dark">
 			<Link to="/">
 				<img src={logo_brutal} className="logo_navbar" />
@@ -33,10 +35,27 @@ export const Navba = () => {
 				</Link>
 			</Nav>
 			<Form inline>
-				<Link to="/profile">
-					<img src={fill_murray_300x300} className="perfil_navbar" />
-				</Link>
+				{store.currentUser !== null ? (
+					<a
+						className="dropdown-item"
+						href="/#"
+						onClick={e => {
+							e.preventDefault();
+							actions.logout(history);
+						}}>
+						Logout
+					</a>
+				) : (
+					<Link className="dropdown-item" to="/suscriptions">
+						Suscríbete
+					</Link>
+				)}
+				<Link to="/profile">{store.currentUser !== null ? store.currentUser.data.user.name : "username"}</Link>
 			</Form>
 		</Navbar>
 	);
 };
+Navba.propTypes = {
+	history: PropTypes.object
+};
+export default withRouter(Navba);

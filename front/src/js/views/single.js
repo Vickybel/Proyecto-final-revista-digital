@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Single = props => {
+	// const { history } = props;
 	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
 		<div className="jumbotron">
 			<h1 className="display-4">This will show the demo element: {store.demo[props.match.params.theid].title}</h1>

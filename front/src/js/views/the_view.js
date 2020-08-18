@@ -4,9 +4,16 @@ import { Context } from "../store/appContext";
 import { Worker } from "@phuocng/react-pdf-viewer";
 import Viewer from "@phuocng/react-pdf-viewer";
 // import SimpleToolbar from "../component/simpletoolbar";
+import PropTypes from "prop-types";
 
-export const The_View = () => {
+export const The_View = props => {
+	const { history } = props;
 	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
 		<>
 			<div className="container">
@@ -16,4 +23,7 @@ export const The_View = () => {
 			</div>
 		</>
 	);
+};
+The_View.propTypes = {
+	history: PropTypes.object
 };

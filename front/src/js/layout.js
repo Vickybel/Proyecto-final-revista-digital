@@ -18,7 +18,7 @@ import { Admin_carousel } from "./views/admin_carousel";
 import { Admin } from "./views/admin";
 import { Login_admin } from "./views/login_admin";
 
-import { Navba } from "./component/navbar";
+import Navba from "./component/navbar";
 import { Footer } from "./component/footer";
 import { The_View } from "./views/the_view";
 

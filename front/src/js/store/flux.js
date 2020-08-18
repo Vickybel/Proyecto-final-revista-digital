@@ -3,11 +3,8 @@ const getState = ({ getStore, setStore }) => {
 		store: {
 			apiUrl: "https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io",
 			magazine: {
-<<<<<<< HEAD
 				apiUrl: "https://5000-c9c6b521-788f-42eb-ae49-fadcea8f2c1a.ws-us02.gitpod.io/magazine",
 				url: "https://5000-b4add0ee-14ad-4ce9-be91-b858ddcfbf50.ws-us02.gitpod.io",
-=======
->>>>>>> 691b14f443f2ab489622efc973504cee244ff94a
 				magazines: [],
 				magazine_name: "",
 				magazine_date: "",
@@ -33,22 +30,12 @@ const getState = ({ getStore, setStore }) => {
 		},
 
 		actions: {
-<<<<<<< HEAD
 			// handleChange: e => {
 			// 	e.preventDefault();
 			// 	const { magazine } = getStore();
 			// 	magazine[e.target.name] = e.target.value;
 			// 	setStore({ magazine: magazine });
 			// },
-=======
-			/* handleChange: e => {
-				e.preventDefault();
-				const { magazine } = getStore();
-				magazine[e.target.name] = e.target.value;
-				setStore({ magazine: magazine });
-			}, */
-
->>>>>>> 691b14f443f2ab489622efc973504cee244ff94a
 			handleChange: e => {
 				const { name, value } = e.target;
 				setStore({ [name]: value });
@@ -232,6 +219,7 @@ const getState = ({ getStore, setStore }) => {
 				const result = await resp.json();
 				if (result.msg) {
 					setStore({
+						isAuth: null,
 						error: result.msg
 					});
 				} else {
@@ -239,9 +227,34 @@ const getState = ({ getStore, setStore }) => {
 						username: "",
 						password: "",
 						currentUser: result,
-						error: null
+						error: null,
+						isAuth: true
 					});
+
+					localStorage.setItem("currentUser", JSON.stringify(result));
+					localStorage.setItem("isAuth", true);
+
 					history.push("/");
+				}
+			},
+			isAuthenticated: () => {
+				if (localStorage.getItem("isAuth")) {
+					setStore({
+						currentUser: JSON.parse(localStorage.getItem("currentUser")),
+						isAuth: JSON.parse(localStorage.getItem("isAuth"))
+					});
+				}
+			},
+			logout: history => {
+				if (localStorage.getItem("isAuth")) {
+					localStorage.removeItem("isAuth");
+					localStorage.removeItem("currentUser");
+					setStore({
+						error: null,
+						isAuth: false,
+						currentUser: null
+					});
+					history.push("/login");
 				}
 			}
 		}

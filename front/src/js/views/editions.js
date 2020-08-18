@@ -1,5 +1,5 @@
-import React from "react";
-// import Context from "../store/appContext";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import fill_murray_640x360 from "../../img/fill_murray_640x360.jpg";
 import fill_murray_240x360 from "../../img/fill_murray_240x360.jpg";
@@ -7,9 +7,16 @@ import Opcion from "../component/opcion_ediciones";
 import Card_ediciones from "../component/card_ediciones";
 import { Banner } from "../component/banner";
 import { Card, Col, Row, Button } from "react-bootstrap";
+import PropTypes from "prop-types";
 
-export const Editions = () => {
-	// const { store } = useContext(Context);
+export const Editions = props => {
+	const { store } = useContext(Context);
+	const { history } = props;
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
 		<>
 			<Card>
@@ -58,4 +65,7 @@ export const Editions = () => {
 			</Card>
 		</>
 	);
+};
+Editions.propTypes = {
+	history: PropTypes.object
 };

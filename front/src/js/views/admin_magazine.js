@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 
-export const Admin_magazine = () => {
+export const Admin_magazine = props => {
 	const { store, actions } = useContext(Context);
+	const { history } = props;
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
 
 	return (
 		<div className="container">
@@ -81,4 +87,7 @@ export const Admin_magazine = () => {
 			</form>
 		</div>
 	);
+};
+Admin_magazine.propTypes = {
+	history: PropTypes.object
 };

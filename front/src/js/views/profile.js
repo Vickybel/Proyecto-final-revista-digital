@@ -2,9 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import fill_murray_300x300 from "../../img/fill_murray_300x300.jpg";
+import PropTypes from "prop-types";
 
-export const Profile = () => {
+export const Profile = props => {
+	const { history } = props;
 	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
 		<>
 			<div className="container perfil">
@@ -33,4 +40,7 @@ export const Profile = () => {
 			</div>
 		</>
 	);
+};
+Profile.propTypes = {
+	history: PropTypes.object
 };

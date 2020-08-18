@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "../../styles/index.scss";
+import PropTypes from "prop-types";
 
-export const Mediaplans = () => {
+export const Mediaplans = props => {
+	const { store, actions } = useContext(Context);
+	const { history } = props;
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
 		<>
 			<Form.Row className="formulario">
@@ -45,4 +54,7 @@ export const Mediaplans = () => {
 			</Form.Row>
 		</>
 	);
+};
+Mediaplans.propTypes = {
+	history: PropTypes.object
 };

@@ -1,33 +1,52 @@
-import React, { useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import React, { useEffect, useContext } from "react";
+import { Context } from "./../store/appContext";
+import { Card, Form, Button, Alert } from "react-bootstrap";
+import PropTypes from "prop-types";
 
-export default function Login_admin() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+export const Login_admin = props => {
+	const { history } = props;
+	const { store, actions } = useContext(Context);
 
-	function validateForm() {
-		return email.length > 0 && password.length > 0;
-	}
-
-	function handleSubmit(event) {
-		event.preventDefault();
-	}
+	useEffect(() => {
+		if (store.isAuth) history.push("/");
+	}, []);
 
 	return (
-		<div className="Login">
-			<form onSubmit={handleSubmit}>
-				<FormGroup controlId="email" bsSize="large">
-					<ControlLabel>Email</ControlLabel>
-					<FormControl autoFocus type="email" value={email} onChange={e => setEmail(e.target.value)} />
-				</FormGroup>
-				<FormGroup controlId="password" bsSize="large">
-					<ControlLabel>Password</ControlLabel>
-					<FormControl value={password} onChange={e => setPassword(e.target.value)} type="password" />
-				</FormGroup>
-				<Button block bsSize="large" disabled={!validateForm()} type="submit">
-					Login
+		<Card className="card_login">
+			<Form onSubmit={e => actions.getLogin(e, history)}>
+				<Form.Group controlId="formBasicEmail">
+					{!!store.error && <Alert variant="danger">Hey!, aquí hay un problema, {store.error}</Alert>}
+
+					<Form.Label>Email address</Form.Label>
+					<Form.Control
+						type="email"
+						placeholder="Enter email"
+						name="username"
+						onChange={actions.handleChange}
+					/>
+					<Form.Text className="text-muted">Well never share your email with anyone else.</Form.Text>
+				</Form.Group>
+
+				<Form.Group controlId="formBasicPassword">
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						type="password"
+						placeholder="Password"
+						name="password"
+						onChange={actions.handleChange}
+					/>
+				</Form.Group>
+				<Form.Group controlId="formBasicCheckbox">
+					<Form.Check type="checkbox" label="Check me out" />
+				</Form.Group>
+				<Button variant="primary" type="submit" className="button_login">
+					Submit
 				</Button>
-			</form>
-		</div>
+			</Form>
+		</Card>
 	);
-}
+};
+
+Login_admin.propTypes = {
+	history: PropTypes.object
+};

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import Carousel from "react-bootstrap/Carousel";
@@ -8,8 +8,15 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import PropTypes from "prop-types";
 
-export const Home = () => {
+export const Home = props => {
+	const { store, actions } = useContext(Context);
+	const { history } = props;
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
 		<>
 			<Carousel className="carrusel">
@@ -229,4 +236,7 @@ export const Home = () => {
 			</Table>
 		</>
 	);
+};
+Home.propTypes = {
+	history: PropTypes.object
 };

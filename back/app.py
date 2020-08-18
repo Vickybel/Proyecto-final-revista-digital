@@ -89,7 +89,7 @@ def usuario(id=None):
             return jsonify({"msg": "User already exist"}), 
      
         user = User()
-        user.email = email
+        user.email = request.json.get("email", "")
         user.password = bcrypt.generate_password_hash(password)
         user.name = request.json.get("name", "")
         user.last_name = request.json.get("last_name", "")

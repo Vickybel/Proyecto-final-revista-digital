@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export const Admin = () => {
+export const Admin = props => {
+	const { history } = props;
+	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		if (!store.isAuth) history.push("/login");
+	}, []);
+
 	return (
 		<>
 			<DropdownButton id="dropdown-basic-button" title="Menu Administrativo">
@@ -19,4 +28,7 @@ export const Admin = () => {
 			</DropdownButton>
 		</>
 	);
+};
+Admin.propTypes = {
+	history: PropTypes.object
 };
