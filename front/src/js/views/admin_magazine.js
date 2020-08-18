@@ -8,7 +8,7 @@ export const Admin_magazine = () => {
 	return (
 		<div className="container">
 			<div style={{ marginTop: "40px" }}>
-				{!!store.alertCreateNewContact && (
+				{!!store.alertCreateNewMagazine && (
 					<div className="row">
 						<div className="col-12">
 							<div className="alert alert-success alert-dismissible fade show" role="alert">

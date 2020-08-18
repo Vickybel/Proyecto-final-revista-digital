@@ -55,24 +55,52 @@ export const Home = () => {
 					Disfruta de la lectura completa de todas nuestras revistas y guarda tus favorias en un espacio solo
 					dedicado para ti.
 				</p>
-				<Card style={{ width: "75rem" }}>
-					<div className="row">
-						<div className="col-6">
-							<Card.Img
-								variant="top"
-								src="https://s7cdn.joomag.com/res_mag/1/1065/1065366/1828535/thumbs/44293025.jpg?1558100217"
-								className="suscribete"
-							/>
-						</div>
-						<div className="col-6">
-							<Card.Img
-								variant="top"
-								src="https://s7cdn.joomag.com/res_mag/1/1275/1275807/2050475/thumbs/49684033.jpg?1572336469"
-								className="suscribete"
-							/>
-						</div>
-					</div>
-				</Card>
+				<Table striped bordered hover variant="dark" className="table">
+					<tbody>
+						<tr>
+							<td>
+								<Link to="/theview">
+									<Card.Img
+										variant="top"
+										src="https://s7cdn.joomag.com/res_mag/1/1275/1275807/2050475/thumbs/49684033.jpg?1572336469"
+									/>
+								</Link>
+							</td>
+							<td>
+								<Link to="/theview">
+									<Card.Img
+										variant="top"
+										src="https://s7cdn.joomag.com/res_mag/1/1275/1275807/2050475/thumbs/49684033.jpg?1572336469"
+									/>
+								</Link>
+							</td>
+							<td>
+								<Link to="/theview">
+									<Card.Img
+										variant="top"
+										src="https://s7cdn.joomag.com/res_mag/1/1275/1275807/2050475/thumbs/49684033.jpg?1572336469"
+									/>
+								</Link>
+							</td>
+							<td>
+								<Link to="/theview">
+									<Card.Img
+										variant="top"
+										src="https://s7cdn.joomag.com/res_mag/1/1275/1275807/2050475/thumbs/49684033.jpg?1572336469"
+									/>
+								</Link>
+							</td>
+							<td>
+								<Link to="/theview">
+									<Card.Img
+										variant="top"
+										src="https://s7cdn.joomag.com/res_mag/1/1275/1275807/2050475/thumbs/49684033.jpg?1572336469"
+									/>
+								</Link>
+							</td>
+						</tr>
+					</tbody>
+				</Table>
 				<p>
 					<Link to="/suscriptions">
 						<Button variant="primary">Suscribirse</Button>
