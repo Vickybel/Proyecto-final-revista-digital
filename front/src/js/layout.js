@@ -19,6 +19,8 @@ import { Footer } from "./component/footer";
 import { The_View } from "./views/the_view";
 import { Admin_banner } from "./views/admin_banner";
 
+import history from "./history";
+
 //create your first component
 export const Layout = () => {
 	//the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -27,7 +29,7 @@ export const Layout = () => {
 
 	return (
 		<div className="d-flex flex-column h-100">
-			<BrowserRouter basename={basename}>
+			<BrowserRouter basename={basename} history={history}>
 				<ScrollToTop>
 					<Navba />
 					<Switch>

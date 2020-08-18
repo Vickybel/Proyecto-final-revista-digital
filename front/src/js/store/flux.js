@@ -3,6 +3,7 @@ const getState = ({ getStore, setStore }) => {
 		store: {
 			magazine: {
 				apiUrl: "https://5000-c9c6b521-788f-42eb-ae49-fadcea8f2c1a.ws-us02.gitpod.io/magazine",
+				url: "https://5000-b4add0ee-14ad-4ce9-be91-b858ddcfbf50.ws-us02.gitpod.io",
 				magazines: [],
 				magazine_name: "",
 				magazine_date: "",
@@ -12,15 +13,24 @@ const getState = ({ getStore, setStore }) => {
 			alertCreateNewMagazine: "",
 			alertUpdateMagazine: "",
 			alertDelete: "",
-			AllMagazines: []
+			AllMagazines: [],
+			username: "",
+			password: "",
+			currentUser: null,
+			error: null,
+			isAuth: false
 		},
 
 		actions: {
+			// handleChange: e => {
+			// 	e.preventDefault();
+			// 	const { magazine } = getStore();
+			// 	magazine[e.target.name] = e.target.value;
+			// 	setStore({ magazine: magazine });
+			// },
 			handleChange: e => {
-				e.preventDefault();
-				const { magazine } = getStore();
-				magazine[e.target.name] = e.target.value;
-				setStore({ magazine: magazine });
+				const { name, value } = e.target;
+				setStore({ [name]: value });
 			},
 			handleFile: e => {
 				const { name, files } = e.target;
@@ -170,6 +180,38 @@ const getState = ({ getStore, setStore }) => {
 					.catch(error => {
 						console.log(error);
 					});
+			},
+			getLogin: async (e, history) => {
+				e.preventDefault();
+				const store = getStore();
+				const data = {
+					email: store.username,
+					password: store.password
+				};
+				// const resp = await fetch(`${store.url}/login`, {
+
+				const resp = await fetch("https://5000-b4add0ee-14ad-4ce9-be91-b858ddcfbf50.ws-us02.gitpod.io/login", {
+					method: "POST",
+					body: JSON.stringify(data),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				});
+
+				const result = await resp.json();
+				if (result.msg) {
+					setStore({
+						error: result.msg
+					});
+				} else {
+					setStore({
+						username: "",
+						password: "",
+						currentUser: result,
+						error: null
+					});
+					history.push("/");
+				}
 			}
 		}
 	};

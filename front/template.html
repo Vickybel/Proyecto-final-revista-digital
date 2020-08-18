@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html class="h-100">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="UTF-8">
-        <title>Hello Rigo with Vanilla.js</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    </head>
-    <body class="h-100">
-        <div id="app" class="h-100"></div>
-    </body>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<title>Hello Rigo with Vanilla.js</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+		integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+</head>
+
+<body class="h-100">
+	<div id="app" class="h-100"></div>
+	<script
+		src="https://www.paypal.com/sdk/js?client-id=AYcHvc_p1AuDnGiO14ayku0p5_P30cYpOoTlomqgoaZxd6l8beOV9f5a0ieDGWnVu_yc9NN-eHBknkVK&vault=true"
+		data-sdk-integration-source="button-factory"></script>
+	<script>
+		paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'subscribe',
+          
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          'plan_id': 'P-1GF83077U2568435KL425VTA'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID);
+      }
+  }).render('#paypal-button-container');
+	</script>
+</body>
+
 </html>

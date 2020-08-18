@@ -31,8 +31,20 @@
 }
 .suscribete_title{
     font-family: 'Playfair Display', serif;
-    margin-bottom:20px; 
-    padding-left: 53px;
+    margin-bottom: 10px;
+    padding-right: 714px;
+    margin-top: 30px;
+}
+.color_plan{
+    align-self: center;
+    text-align: center;
+    color: white;
+    background: #0288FF;
+    padding: 10px;
+    margin: 6px;
+    border-radius: 2px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .mediaplans_title{
     font-family: 'Playfair Display', serif;
@@ -112,8 +124,12 @@
 }
 
 .card_suscripcion{
-    width: 500px;
-    padding: 50px;
+    width: 370px;
+    border: none;
+    background: #ececec8c;
+    height: 550px;
+    margin-bottom: 50px;
+    margin-left: 68px;
 }
 
 .planes{
@@ -168,4 +184,14 @@
    width:290px;
    margin:auto;
    text-align:left;
+}
+.card_login{
+    width: 23rem;
+    margin-left: 35%;
+    margin-top: 6%;
+    margin-bottom: 6%;
+    border: none;
+}
+.button_login{
+    margin-left: 38%;
 }

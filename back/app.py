@@ -68,12 +68,12 @@ def usuario(id=None):
         user.date = request.json.get("date", "")
         user.avatar= request.json.get("avatar", "")
         user.update()
-        return jsonify('Actualizado correctamente'), 200
+        return jsonify({'msg':'Actualizado correctamente'}), 200
     # https://www.free-css.com/assets/files/free-css-templates/preview/page254/auricle/
     elif request.method == 'DELETE':
         user = User.query.get(id)
         user.delete()
-        return jsonify('Borrado'),200
+        return jsonify({'msg':'Borrado'}),200
 
     elif request.method == "POST":
         email = request.json.get("email", None)
