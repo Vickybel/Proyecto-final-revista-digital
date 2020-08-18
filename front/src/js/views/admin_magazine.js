@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import React, { useContext } from "react";
-<<<<<<< HEAD
-import PropTypes from "prop-types";
-=======
 import { Alert } from "react-bootstrap";
->>>>>>> 896f5e5a7d46531a2b8d80e584d09ad4bfbdba87
 
 export const Admin_magazine = props => {
 	const { store, actions } = useContext(Context);
-	const { history } = props;
+	//const { history } = props;
 
 	useEffect(() => {
 		if (!store.isAuth) history.push("/login");
@@ -94,5 +90,5 @@ export const Admin_magazine = props => {
 	);
 };
 Admin_magazine.propTypes = {
-	history: PropTypes.object
+	//history: PropTypes.object
 };
