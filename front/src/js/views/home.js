@@ -16,7 +16,7 @@ export const Home = () => {
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
-						src="http://placeimg.com/1000/300/animals?t=1596140387818"
+						src="http://lorempixel.com/output/technics-q-c-700-300-9.jpg"
 						alt="First slide"
 					/>
 					<Carousel.Caption>
@@ -27,7 +27,7 @@ export const Home = () => {
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
-						src="http://placeimg.com/1000/300/animals?t=1596140440545"
+						src="http://lorempixel.com/output/technics-q-c-700-300-2.jpg"
 						alt="Third slide"
 					/>
 
@@ -39,7 +39,7 @@ export const Home = () => {
 				<Carousel.Item>
 					<img
 						className="d-block w-100"
-						src="http://placeimg.com/1000/300/animals?t=1596140457250"
+						src="http://lorempixel.com/output/technics-q-c-700-300-1.jpg"
 						alt="Third slide"
 					/>
 
@@ -109,7 +109,7 @@ export const Home = () => {
 			</Jumbotron>
 			<CardGroup className="cardgroup">
 				<Card>
-					<Card.Img variant="top" src="http://placeimg.com/800/800/people" />
+					<Card.Img variant="top" src="http://lorempixel.com/output/fashion-q-c-800-800-4.jpg" />
 					<Card.Body>
 						<Card.Title>Card title</Card.Title>
 						<Card.Text>
@@ -124,7 +124,7 @@ export const Home = () => {
 					</Card.Footer>
 				</Card>
 				<Card>
-					<Card.Img variant="top" src="http://placeimg.com/800/800/people?t=1596140904594" />
+					<Card.Img variant="top" src="http://lorempixel.com/output/fashion-q-c-800-800-5.jpg" />
 					<Card.Body>
 						<Card.Title>Card title</Card.Title>
 						<Card.Text>
@@ -139,7 +139,7 @@ export const Home = () => {
 					</Card.Footer>
 				</Card>
 				<Card>
-					<Card.Img variant="top" src="http://placeimg.com/800/800/people?t=1596140923122" />
+					<Card.Img variant="top" src="http://lorempixel.com/output/fashion-q-c-800-800-3.jpg" />
 					<Card.Body>
 						<Card.Title>Card title</Card.Title>
 						<Card.Text>
@@ -159,27 +159,27 @@ export const Home = () => {
 					<tr>
 						<td>
 							<Link to="/theview">
-								<Card.Img variant="top" src="http://placeimg.com/400/400/arch" />
+								<Card.Img variant="top" src="http://lorempixel.com/output/city-q-c-300-300-4.jpg" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141050162" />
+								<Card.Img variant="top" src="http://lorempixel.com/output/city-q-c-300-300-9.jpg" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141065145" />
+								<Card.Img variant="top" src="http://lorempixel.com/output/city-q-c-300-300-5.jpg" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141076338" />
+								<Card.Img variant="top" src="http://lorempixel.com/output/city-q-c-300-300-1.jpg" />
 							</Link>
 						</td>
 						<td>
 							<Link to="/theview">
-								<Card.Img variant="top" src="http://placeimg.com/400/400/arch?t=1596141087658" />
+								<Card.Img variant="top" src="http://lorempixel.com/output/city-q-c-300-300-6.jpg" />
 							</Link>
 						</td>
 					</tr>

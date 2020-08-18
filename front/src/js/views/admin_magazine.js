@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import React, { useContext } from "react";
+import { Alert } from "react-bootstrap";
 
 export const Admin_magazine = () => {
 	const { store, actions } = useContext(Context);
@@ -26,6 +27,7 @@ export const Admin_magazine = () => {
 					</div>
 				)}
 			</div>
+			{!!store.error && <Alert variant="danger">Hey!, aquí hay un problema, {store.error}</Alert>}
 			<h1 className="text-center mt-5">Add a new magazine</h1>
 			<form id="createContact" onSubmit={e => actions.createNewMagazine(e)}>
 				<div className="form-group">
