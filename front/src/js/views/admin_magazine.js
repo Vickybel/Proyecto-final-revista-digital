@@ -34,7 +34,7 @@ export const Admin_magazine = () => {
 						type="text"
 						className="form-control"
 						placeholder="Full Name"
-						name="full_name"
+						name="magazine_name"
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>
@@ -45,7 +45,7 @@ export const Admin_magazine = () => {
 						type="date"
 						className="form-control"
 						placeholder="date"
-						name="phone"
+						name="magazine_date"
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>
@@ -56,8 +56,8 @@ export const Admin_magazine = () => {
 						type="file"
 						className="form-control"
 						placeholder="file"
-						name="Glance"
-						onChange={e => actions.handleChange(e)}
+						name="magazine_glance"
+						onChange={e => actions.handleFile(e)}
 					/>
 				</div>
 				<div className="form-group">
@@ -66,8 +66,8 @@ export const Admin_magazine = () => {
 						type="file"
 						className="form-control"
 						placeholder="file"
-						name="Body"
-						onChange={e => actions.handleChange(e)}
+						name="magazine_body"
+						onChange={e => actions.handleFile(e)}
 					/>
 				</div>
 

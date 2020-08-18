@@ -1,14 +1,21 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
+			apiUrl: "https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io",
 			magazine: {
-				apiUrl: "https://5000-c9c6b521-788f-42eb-ae49-fadcea8f2c1a.ws-us02.gitpod.io/magazine",
 				magazines: [],
 				magazine_name: "",
 				magazine_date: "",
 				magazine_glance: "",
 				magazine_body: ""
 			},
+			banner: {
+				carousel: [],
+				carousel_name: "",
+				carousel_size: "",
+				carousel_body: ""
+			},
+
 			alertCreateNewMagazine: "",
 			alertUpdateMagazine: "",
 			alertDelete: "",
@@ -16,12 +23,18 @@ const getState = ({ getStore, setStore }) => {
 		},
 
 		actions: {
-			handleChange: e => {
+			/* handleChange: e => {
 				e.preventDefault();
 				const { magazine } = getStore();
 				magazine[e.target.name] = e.target.value;
 				setStore({ magazine: magazine });
+			}, */
+
+			handleChange: e => {
+				const { name, value } = e.target;
+				setStore({ [name]: value });
 			},
+
 			handleFile: e => {
 				const { name, files } = e.target;
 				setStore({
@@ -37,8 +50,14 @@ const getState = ({ getStore, setStore }) => {
 				e.preventDefault();
 				const store = getStore();
 				let formData = new FormData();
-				formData.append("magazine", store.magazine);
-				fetch("", {
+				formData.append("user_type", "admin");
+				formData.append("name", store.magazine.magazine_name);
+				formData.append("date", store.magazine.magazine_date);
+				formData.append("glance", store.magazine.magazine_glance);
+				formData.append("body", store.magazine.magazine_body);
+				formData.append("premium_id", 1);
+				formData.append("admin_id", 1);
+				fetch(`${store.apiUrl}/magazine/25`, {
 					method: "POST",
 					body: formData,
 					headers: {
@@ -97,7 +116,7 @@ const getState = ({ getStore, setStore }) => {
 
 			deleteMagazine: e => {
 				const store = getStore();
-				fetch(`https://assets.breatheco.de/apis/fake/contact/${e.target.id}`, {
+				fetch(`https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io/magazine${e.target.id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json"
@@ -127,7 +146,7 @@ const getState = ({ getStore, setStore }) => {
 			updateMagazine: (e, idform) => {
 				e.preventDefault();
 				const store = getStore();
-				fetch(`https://assets.breatheco.de/apis/fake/contact/${e.target.id}`, {
+				fetch(`https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io/magazine/${e.target.id}`, {
 					method: "PUT",
 					body: JSON.stringify(store.magazine),
 					headers: {
@@ -155,12 +174,15 @@ const getState = ({ getStore, setStore }) => {
 			},
 
 			GetMagazineToUpdate: e => {
-				fetch(`https://assets.breatheco.de/apis/fake/contact/${e.match.params.id}`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json"
+				fetch(
+					`https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io/magazine/${e.match.params.id}`,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json"
+						}
 					}
-				})
+				)
 					.then(resp => {
 						return resp.json();
 					})
