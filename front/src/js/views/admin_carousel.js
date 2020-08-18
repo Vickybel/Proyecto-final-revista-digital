@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import React, { useContext } from "react";
 
-export const Admin_magazine = () => {
+export const Admin_carousel = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
 		<div className="container">
 			<div style={{ marginTop: "40px" }}>
-				{!!store.alertCreateNewContact && (
+				{!!store.alertCreateNewCarousel && (
 					<div className="row">
 						<div className="col-12">
 							<div className="alert alert-success alert-dismissible fade show" role="alert">
-								<strong>Done!</strong> New magazine created
+								<strong>Done!</strong> New magazine image to carousel
 								<button
 									onClick={actions.clearNotifications}
 									type="button"
@@ -27,7 +27,7 @@ export const Admin_magazine = () => {
 				)}
 			</div>
 			<h1 className="text-center mt-5">Add a new magazine</h1>
-			<form id="createContact" onSubmit={e => actions.createNewMagazine(e)}>
+			<form id="createContact" onSubmit={e => actions.createNewCarousel(e)}>
 				<div className="form-group">
 					<label>Full Name</label>
 					<input
@@ -40,33 +40,12 @@ export const Admin_magazine = () => {
 				</div>
 
 				<div className="form-group">
-					<label>Date</label>
-					<input
-						type="date"
-						className="form-control"
-						placeholder="date"
-						name="phone"
-						onChange={e => actions.handleChange(e)}
-					/>
-				</div>
-
-				<div className="form-group">
-					<label>Glance</label>
+					<label>Carrusel</label>
 					<input
 						type="file"
 						className="form-control"
 						placeholder="file"
-						name="Glance"
-						onChange={e => actions.handleChange(e)}
-					/>
-				</div>
-				<div className="form-group">
-					<label>Body</label>
-					<input
-						type="file"
-						className="form-control"
-						placeholder="file"
-						name="Body"
+						name="Carrusel"
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>
@@ -75,8 +54,8 @@ export const Admin_magazine = () => {
 					save
 				</button>
 
-				<Link className="mt-3 w-100 text-center" to="/editions">
-					get back to magazine
+				<Link className="mt-3 w-100 text-center" to="/admin">
+					get back to principal menu
 				</Link>
 			</form>
 		</div>
