@@ -8,7 +8,7 @@ export const Admin_carousel = props => {
 	const { history } = props;
 
 	useEffect(() => {
-		if (!store.isAuth) history.push("/login");
+		if (!store.isAuth) history.push("/login_admin");
 	}, []);
 
 	return (
