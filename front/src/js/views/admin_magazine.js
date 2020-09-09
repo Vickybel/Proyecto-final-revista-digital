@@ -8,7 +8,7 @@ export const Login_admin = props => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		if (store.isAuth) history.push("/admin");
+		if (!store.isAuth) history.push("/login_admin");
 	}, []);
 
 	return (
