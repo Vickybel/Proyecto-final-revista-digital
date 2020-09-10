@@ -7,19 +7,22 @@ const getState = ({ getStore, setStore }) => {
 				magazine_name: "",
 				magazine_date: "",
 				magazine_glance: "",
-				magazine_body: ""
+				magazine_body: "",
+				magazine_user_type: "admin"
 			},
 			carousel: {
 				carousel: [],
 				carousel_name: "",
 				carousel_size: "",
-				carousel_body: ""
+				carousel_body: "",
+				carousel_admin_id: "5"
 			},
 			banner: {
 				banner: [],
 				banner_name: "",
 				banner_size: "",
-				banner_body: ""
+				banner_body: "",
+				banner_admin_id: "5"
 			},
 			alertCreateNewMagazine: "",
 			alertUpdateMagazine: "",

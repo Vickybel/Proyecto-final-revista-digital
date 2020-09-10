@@ -41,6 +41,7 @@ export const Admin_banner = props => {
 						className="form-control"
 						placeholder="Full Name"
 						name="full_name"
+						required
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>
@@ -52,6 +53,7 @@ export const Admin_banner = props => {
 						className="form-control"
 						placeholder="file"
 						name="Banner"
+						required
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>

@@ -41,6 +41,7 @@ export const Admin_carousel = props => {
 						className="form-control"
 						placeholder="carousel_name"
 						name="carousel_name"
+						required
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>
@@ -52,6 +53,7 @@ export const Admin_carousel = props => {
 						className="form-control"
 						placeholder="carousel_size"
 						name="carousel_size"
+						required
 						onChange={e => actions.handleChange(e)}
 					/>
 				</div>
@@ -63,6 +65,7 @@ export const Admin_carousel = props => {
 						className="form-control"
 						placeholder="carousel_body"
 						name="carousel_body"
+						required
 						onChange={e => actions.handleFile(e)}
 					/>
 				</div>
