@@ -7,19 +7,22 @@ const getState = ({ getStore, setStore }) => {
 				magazine_name: "",
 				magazine_date: "",
 				magazine_glance: "",
-				magazine_body: ""
+				magazine_body: "",
+				magazine_user_type: "admin"
 			},
 			carousel: {
 				carousel: [],
 				carousel_name: "",
 				carousel_size: "",
-				carousel_body: ""
+				carousel_body: "",
+				carousel_admin_id: "5"
 			},
 			banner: {
 				banner: [],
 				banner_name: "",
 				banner_size: "",
-				banner_body: ""
+				banner_body: "",
+				banner_admin_id: "5"
 			},
 			alertCreateNewMagazine: "",
 			alertUpdateMagazine: "",
@@ -119,7 +122,7 @@ const getState = ({ getStore, setStore }) => {
 
 			deleteMagazine: e => {
 				const store = getStore();
-				fetch(`https://5000-b5e73340-cac7-42f0-adf0-db1bf1692c22.ws-us02.gitpod.io/magazine${e.target.id}`, {
+				fetch(`https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io/magazine${e.target.id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json"
@@ -149,7 +152,7 @@ const getState = ({ getStore, setStore }) => {
 			updateMagazine: (e, idform) => {
 				e.preventDefault();
 				const store = getStore();
-				fetch(`https://5000-b5e73340-cac7-42f0-adf0-db1bf1692c22.ws-us02.gitpod.io/${e.target.id}`, {
+				fetch(`https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io/magazine/${e.target.id}`, {
 					method: "PUT",
 					body: JSON.stringify(store.magazine),
 					headers: {
@@ -177,12 +180,15 @@ const getState = ({ getStore, setStore }) => {
 			},
 
 			GetMagazineToUpdate: e => {
-				fetch(`https://5000-b5e73340-cac7-42f0-adf0-db1bf1692c22.ws-us02.gitpod.io/${e.match.params.id}`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json"
+				fetch(
+					`https://5000-d71b49a7-8903-44db-ae1a-99aa5de996c2.ws-us02.gitpod.io/magazine/${e.match.params.id}`,
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json"
+						}
 					}
-				})
+				)
 					.then(resp => {
 						return resp.json();
 					})
