@@ -28,7 +28,10 @@ const Navba = props => {
 					<span className="navbar-brand mb-0 h1 playfair">Ediciones</span>
 				</Link>
 				<Link to="/suscriptions">
-					<span className="navbar-brand mb-0 h1 playfair">Suscríbete</span>
+					<span className="navbar-brand mb-0 h1 playfair">Donaciones</span>
+				</Link>
+				<Link to="/register">
+					<span className="navbar-brand mb-0 h1 playfair">Registrate</span>
 				</Link>
 				<Link to="/mediaplans">
 					<span className="navbar-brand mb-0 h1 playfair">Plan de Medios</span>
@@ -47,10 +50,10 @@ const Navba = props => {
 					</a>
 				) : (
 					<Link className="dropdown-item" to="/suscriptions">
-						Suscríbete
+						Donaciones
 					</Link>
 				)}
-				<Link to="/profile">{store.currentUser !== null ? store.currentUser.data.user.name : "username"}</Link>
+				<Link to="/profile">{store.currentUser !== null ? store.currentUser.data.user.name : ""}</Link>
 			</Form>
 		</Navbar>
 	);

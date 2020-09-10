@@ -3,7 +3,7 @@ import { Context } from "./../store/appContext";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-export const Login_admin = props => {
+export const Admin_magazine = props => {
 	const { history } = props;
 	const { store, actions } = useContext(Context);
 
@@ -47,6 +47,6 @@ export const Login_admin = props => {
 	);
 };
 
-Login_admin.propTypes = {
+Admin_magazine.propTypes = {
 	history: PropTypes.object
 };

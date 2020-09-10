@@ -32,7 +32,7 @@
 .suscribete_title{
     font-family: 'Playfair Display', serif;
     margin-bottom: 10px;
-    padding-right: 714px;
+    margin-right: -81px;
     margin-top: 30px;
 }
 .color_plan{
@@ -45,6 +45,7 @@
     border-radius: 2px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    max-height: 128px;
 }
 .mediaplans_title{
     font-family: 'Playfair Display', serif;
@@ -194,4 +195,7 @@
 }
 .button_login{
     margin-left: 38%;
+}
+.suscriptions{
+    display: block !important; 
 }

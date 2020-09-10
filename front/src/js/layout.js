@@ -9,6 +9,7 @@ import { Suscriptions } from "./views/suscriptions";
 import { Login } from "./views/login";
 import { Single } from "./views/single";
 import { Profile } from "./views/profile";
+import { Register } from "./views/register";
 
 import injectContext from "./store/appContext";
 
@@ -47,6 +48,7 @@ export const Layout = () => {
 						<Route path="/admin_banner" component={Admin_banner} />
 						<Route path="/admin" component={Admin} />
 						<Route path="/login" component={Login} />
+						<Route path="/register" component={Register} />
 						<Route path="/login_admin" component={Login_admin} />
 						<Route path="/single/:theid" component={Single} />
 

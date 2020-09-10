@@ -9,10 +9,6 @@ export const Mediaplans = props => {
 	const { store, actions } = useContext(Context);
 	const { history } = props;
 
-	useEffect(() => {
-		if (!store.isAuth) history.push("/login");
-	}, []);
-
 	return (
 		<>
 			<Form.Row className="formulario">

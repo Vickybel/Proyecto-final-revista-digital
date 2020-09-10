@@ -57,10 +57,10 @@ export const Home = props => {
 				</Carousel.Item>
 			</Carousel>
 			<Jumbotron className="jumbotron">
-				<h1>¡Suscríbete!</h1>
+				<h1>¡Lo último!</h1>
 				<p>
-					Disfruta de la lectura completa de todas nuestras revistas y guarda tus favorias en un espacio solo
-					dedicado para ti.
+					Disfruta de la lectura de todas nuestras revistas y guarda tus favorias en un espacio solo dedicado
+					para ti.
 				</p>
 				<Table striped bordered hover variant="dark" className="table">
 					<tbody>
